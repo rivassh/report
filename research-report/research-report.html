@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>گزارش تحقیقاتی جامع — gapgpt</title>
+<link rel="stylesheet" href="assets/reveal.css">
+<link rel="stylesheet" href="assets/theme-white.css" id="theme">
+<link rel="stylesheet" href="assets/vazirmatn.css">
+<style>
+        body { font-family: 'Vazirmatn', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .scroll-snap-container { scroll-snap-type: x mandatory; }
+        .scroll-snap-item { scroll-snap-align: start; }
+        .tag-chip { cursor: pointer; transition: all 0.2s; }
+        .tag-chip:hover { background: #fde68a !important; }
+        .poll-widget button { transition: all 0.2s; }
+        .poll-widget button:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4); }
+        /* Viewport containment — fix slides too large for screen */
+        .reveal-viewport { overflow: hidden !important; }
+        .slides > section { max-width: 100% !important; max-height: 100% !important; }
+    </style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<!-- ===== SLIDE 1: TITLE (gradient background) ===== -->
+<section data-markdown data-background="linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #475569 100%)">
+<textarea data-template>
+<div class="title-wrapper">
+  <h1 style="color:white;text-shadow:2px 2px 8px rgba(0,0,0,.5);font-size:3.5em;">گزارش تحقیقاتی جامع</h1>
+  <h2 style="color:#cbd5e1;font-size:2em;margin-top:.5rem;">تحلیل داده‌ها، معماری سیستم و نقشه راه تولیدی</h2>
+  <p style="color:#94a3b8;font-size:1.4em;margin-top:2rem;">gapgpt Knowledge Hub &amp; Dashboard</p>
+  <div style="margin-top:3rem;display:flex;gap:1rem;justify-content:center;align-items:center;flex-wrap:wrap;max-width:600px;">
+    <div class="metric-stat"><div class="metric-val">۲۱۱</div><div class="metric-lbl">چت کل</div></div>
+    <div class="metric-stat"><div class="metric-val">۹۰۰</div><div class="metric-lbl">پیام</div></div>
+    <div class="metric-stat"><div class="metric-val">۱۶</div><div class="metric-lbl">گروه موضوعی</div></div>
+    <div class="metric-stat"><div class="metric-val">۲۹</div><div class="metric-lbl">موضوع</div></div>
+  </div>
+  <div style="margin-top:3rem;color:#94a3b8;font-size:1.1em;">بسمه تعالی · تاریخ: ۱۴۰۵/۰۷/۲۲ (۲۰۲۶-۱۰-۲۵)</div>
+</div>
+</textarea>
+</section>
+<!-- ===== SLIDE 2: AGENDA ===== -->
+<section data-markdown data-background="#f8fafc">
+<textarea data-template>
+<div style="display:flex;justify-content:center;align-items:flex-start;padding:2rem;">
+  <h2 style="color:#1e293b;font-size:2em;">فهرست موضوعات گزارش (۲۹ عنوان)</h2>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:800px;margin:1rem auto;text-align:right;font-size:1.3em;">
+  <span class="metric-stat">منابع محدود — <strong>تشکر نه تعنه</strong></span>
+  <span class="metric-stat">فوندانسیون</span>
+  <span class="metric-stat">پرسشنامه HR محصول جدید</span>
+  <span class="metric-stat">آقای کیانی</span>
+  <span class="metric-stat">آنچه گذشت</span>
+  <span class="badge-dot">داده</span>
+  <span class="metric-stat">دقت در پاسخ‌های ای‌جنت</span>
+  <span class="metric-stat">بی‌حوصلگی</span>
+  <span class="metric-stat">اشتباهات</span>
+  <span class="metric-stat">مدل‌رایتر + proxy</span>
+  <span class="metric-stat">مولتی‌ایجنت</span>
+  <span class="metric-stat">گیت‌اپس</span>
+  <span class="metric-stat">داشبورد/BI</span>
+  <span class="metric-stat">اکتیویتی واچ</span>
+  <span class="metric-stat">ماحصل</span>
+  <span class="metric-stat">روزشمار</span>
+  <span class="metric-stat">چت بات سازمانی</span>
+  <span class="metric-stat">BI</span>
+  <span class="metric-stat">Generative UI</span>
+  <span class="metric-stat">پراسس میکر</span>
+  <span class="metric-stat">فراگستر / سانیران</span>
+  <span class="metric-stat">نقشه راه</span>
+  <span class="metric-stat">RAM + مستندات</span>
+  <span class="metric-stat">لینوکس / USB / هارد شرکت</span>
+  <span class="metric-stat">مصرف اینترنت شخصی</span>
+  <span class="metric-stat">تقاضا</span>
+  <span class="metric-stat">خلاصه</span>
+  <span class="metric-stat">گزارش HTML5</span>
+</div>
+</textarea>
+</section>
+<!-- ===== SLIDE 3: DATA SOURCES ===== -->
+<section data-markdown data-background="#ffffff">
+<textarea data-template>
+<div style="display:flex;justify-content:center;padding:1rem;">
+  <h2 style="color:#1e293b;font-size:2em;">منابع داده محلی</h2>
+</div>
+<table class="reveal table">
+  <thead><tr><th>منبع</th><th>مسیر</th><th>توضیحات</th></tr></thead>
+  <tbody>
+    <tr><td><code>chat-groups-report.json</code></td><td>پوشه اصلی</td><td>۲۱۱ چت · ۹۰۰ پیام · ۱۶ گروه</td></tr>
+    <tr><td><code>timeline_data.json</code></td><td><code>.mimocode/plans/</code></td><td>دیتاسد تایم‌لاین ماهانه</td></tr>
+    <tr><td><code>llfs/chats/*.md</code></td><td><code>llfs/</code></td><td>۲۱+ فایل یادآور چت</td></tr>
+    <tr><td><code>llfs/reports/*.md</code></td><td><code>llfs/</code></td><td>گزارش‌های روزانه git</td></tr>
+    <tr><td><code>scripts/dashboard.py</code></td><td><code>scripts/</code></td><td>داشبورد وب</td></tr>
+    <tr><td><code>scripts/dashboard.log</code></td><td><code>scripts/</code></td><td>لاگ خطا/احراز هویت</td></tr>
+    <tr><td><code>README.md</code></td><td>پوشه اصلی</td><td>مستندات معماری</td></tr>
+  </tbody>
+</table>
+<div class="risk-high">
+  <strong>مشکل لاگ:</strong> <code>Authentication failed for: /api/v1/move_to_project</code> — تکرار خطای احراز هویت.
+</div>
+</textarea>
+</section>
+<!-- ===== SLIDE 4: GITOPS ===== -->
+<section data-markdown data-background="#f0f4f8">
+<textarea data-template>
+<div style="display:flex;justify-content:center;padding:.5rem;">
+  <h2 style="color:#334155;font-size:2em;">DevOps &amp; GitOps</h2>
+</div>
+<div class="card-glow" style="margin:1em;">
+  <h3 style="color:#6366f1;margin-bottom:.8rem;">DevOps — ترکیب توسعه نرم‌افزار و مدیریت عملیات</h3>
+<ul style="list-style:none;padding:0;margin:1rem 0;">
+<li style="padding:0.4rem 0;"><strong>راهکارهای خودکار:</strong> deployed خودکار از طریق CI</li>
+<li style="padding:0.4rem 0;"><strong>بررسی کد</strong> برای تغییرات config</li>
+<li style="padding:0.4rem 0;"><strong>بازگشت به حالت قبل</strong> با نسخه‌نگاری — Red Hat</li>
+</ul>
+</div>
+<div class="block-highlight">
+  <strong>منابع:</strong> repo: <code>scripts/sync_chats.py</code><span class="badge-dot">ویژه</span>
+</div>
+</textarea>
+</section>
+<!-- ===== SLIDE 5: BI ===== -->
+<section data-markdown data-background="#f0f4f8">
+<textarea data-template>
+<div style="display:flex;justify-content:center;padding:.5rem;">
+  <h2 style="color:#334155;font-size:2em;">Business Intelligence (BI)</h2>
+</div>
+<div class="card-glow" style="margin:1em;">
+  <h3 style="color:#6366f1;margin-bottom:.8rem;">تعریف BI</h3>
+  <ul style="list-style:none;padding:0;margin:1rem 0;">
+<li style="padding:0.4rem 0;"><strong>فلسفه:</strong> استخراج چانه‌زنی از داده‌های سازمانی برای تصمیم‌گیری استراتژیک</li>
+</div>
+<div class="card-glow">
+  <h3 style="color:#6366f1;">معماری BI — Core Functions</h3>
+  <table class="reveal table" style="max-width:none;">
+    <thead><tr><th>عملکرد</th><th>توضیحات</th></tr></thead>
+    <tbody>
+      <tr><td>گزارش‌دهی</td><td>گزارش‌دهی</td></tr>
+      <tr><td>پردازش آنلیتیک</td><td>پردازش تحلیلی آنلاین</td></tr>
+      <tr><td>داشبورد</td><td>توسعه داشبورد</td></tr>
+      <tr><td>استخراج داده‌ها</td><td>استخراج داده‌ها</td></tr>
+      <tr><td>استخراج فرآیندها</td><td>استخراج فرآیندها</td></tr>
+      <tr><td>تحلیل پیش‌بینی</td><td>تحلیل پیش‌بینی</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="block-highlight">
+  <strong>منابع:</strong> <code>dashboard.py</code> API endpoints + KNOWLEDGE_HUB.md pgvector<span class="badge-dot">ویژه</span>
+</div>
+</textarea>
+</section>
+<!-- ===== SLIDE 6: GENERATIVE AI & UI ===== -->
+<section data-markdown data-background="#fef3c7">
+<textarea data-template>
+<div style="display:flex;justify-content:center;padding:.5rem;">
+  <h2 style="color:#92400e;font-size:2em;">Generative AI &amp; Generative UI</h2>
+</div>
+<div class="card-glow">
+  <h3 style="color:#92400e;">Generative AI — توليد مدل‌های متن، تصویر، ویدیو، کد</h3>
+  <ul style="list-style:none;padding:0;margin:1rem 0;">
+    <li style="padding:0.3rem 0;"><strong>ساختار اولیه:</strong> معماری توجه</li>
+    <li style="padding:0.3rem 0;"><strong>رییسک:</strong> Hallucinations · Deepfakes · حق کپی‌رایت · محیطی</li>
+  </ul>
+</div>
+<div class="card-glow">
+  <h3 style="color:#92400e;">Generative UI — رابط کاربری پویا با GenAI</h3>
+  <ul style="list-style:none;padding:0;margin:1rem 0;">
+    <li style="padding:0.3rem 0;">✔ NL → فیلتر داشبورد پویا (KNOWLEDGE_HUB pgvector)</li>
+    <li style="padding:0.3rem 0;">✔ Adaptive layouts — کارت‌ها بر اساس urgency</li>
+    <li style="padding:0.3rem 0;">✔ Code generation — خودکار قالب گزارش</li>
+  </ul>
+</div>
+<div class="block-highlight">
+  <strong>منابع:</strong> KNOWLEDGE_HUB.md + dashboard.py<span class="badge-dot">ویژه</span>
+</div>
+</textarea>
+</section>
+
+<!-- ===== SLIDE 7: MODEL ROUTER ===== -->
+<section data-markdown data-background="#f0f4f8">
+<textarea data-template>
+<div style="display:flex;justify-content:center;padding:.5rem;">
+  <h2 style="color:#334155;font-size:2em;">Free Model Router — مدل‌رایتر و Proxy</h2>
+</div>
+<div class="card-glow" style="margin:1em;">
+  <h3 style="color:#6366f1;">مشاهده‌شده در مخزن gapgpt</h3>
+  <table class="reveal table">
+    <thead><tr><th>منبع</th><th>مشخصات</th></tr></thead>
+    <tbody>
+      <tr><td><code>connection/</code></td><td>اتصال‌های locali + remote</td></tr>
+      <tr><td><code>config/</code></td><td>تنظیمات + محیط احراز هویت</td></tr>
+      <tr><td><code>access-token</code></td><td>توکن دسترسی انقضای روزانه</td></tr>
+      <tr><td>Proxy</td><td>در حال ساخت | ۱۰۰ توکن آزاد</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="risk-med" style="margin:1em;">
+  <strong>الگوی "تشکر نه تعنه":</strong> هر ابزار free باید هزینه‌پذیر باشد. مدل‌رایتر باید صرفه‌جویی نماید.
+</div>
+<div class="block-highlight">
+  <strong>منابع:</strong> System config · README + KNOWLEDGE_HUB<span class="badge-dot">ویژه</span>
+</div>
+</textarea>
+</section>
+
+<!-- ===== SLIDE 8: MULTIAGENT ===== -->
+<section data-markdown data-background="#f0f4f8">
+<textarea data-template>
+<div style="display:flex;justify-content:center;padding:.5rem;">
+  <h2 style="color:#334155;font-size:2em;">Multiagent — دفتر کاری از کارمندان</h2>
+</div>
+<div class="card-glow" style="margin:1em;">
+  <h3 style="color:#6366f1;">پروتکل: AGENTS.md — پروتکل Git Swarm</h3>
+  <table class="reveal table">
+    <thead><tr><th>مکانیزم</th><th>توضیحات</th></tr></thead>
+    <tbody>
+      <tr><td><strong>SSOT</strong></td><td>حالت مرکزی — منبع واحد قطعی</td></tr>
+      <tr><td><strong>اجاره‌نامه‌ها</strong></td><td>اجاره‌های مبتنی بر TTL (۱۲۰ ثانیه)</td></tr>
+      <tr><td><strong>شبکه‌های کاری</strong></td><td>جدایی از کارها — شبکه‌های کاری</td></tr>
+    </tbody>
+  </table>
+  <p style="margin:1rem 0;font-size:1.2em;">دستگاه مدیریت: <code>state/tasks.json</code> + <code>state/leases.json</code> + <code>state/team_log.md</code></p>
+</div>
+<div class="metric-stat"><div class="metric-val">211</div><div class="metric-lbl">چت اکتبر ۱۴۰۵</div></div>
+<div class="metric-stat"><div class="metric-val">۳</div><div class="metric-lbl">روز بیش‌فعال</div></div>
+<div class="metric-stat"><div class="metric-val">۱۲۰ث</div><div class="metric-lbl">اجاره‌نامه</div></div>
+<div class="block-highlight">
+  <strong>منابع:</strong> multiagent repo · <code>AGENTS.md</code> + <code>leaves.json</code><span class="badge-dot">ویژه</span>
+</div>
+</textarea>
+</section>
+<!-- ===== SLIDE 9: WHAT HAPPENED ===== -->
+<section data-markdown data-background="#fffbeb">
+<textarea data-template>
+<div style="display:flex;justify-content:center;padding:.5rem;">
+  <h2 style="color:#92400e;font-size:2em;">آنچه گذشت — What Happened</h2>
+</div>
+<table class="reveal table">
+  <thead><tr><th>نمود</th><th>توضیحات</th></tr></thead>
+  <tbody>
+    <tr><td>۲۱۱ چت · ۹۰۰ پیام</td><td>کل مخزن gapgpt</td></tr>
+    <tr><td>ده‌های بیش‌فعال: ۱۱، ۱۹، ۲۳ اکتبر</td><td>۳ جلسه هر روز</td></tr>
+    <tr><td>۲۰ روز فعال از ۳۱ روز</td><td>میانگین سرپایی ~۲.۷</td></tr>
+    <tr><td>۳ غروب (۲، ۹، ۱۳، ۱۵)</td><td>نمودار تایم‌لاین</td></tr>
+  </tbody>
+</table>
+<div class="card-glow" style="margin:1em;">
+  <h3 style="color:#6366f1;">گروه‌های موضوعی (۱۶)</h3>
+  <table class="reveal table">
+    <thead><tr><th>گروه</th><th>چت‌ها</th><th>نکته</th></tr></thead>
+    <tbody>
+      <tr><td>unassigned</td><td>۱۱۱</td><td>۵۳٪ بدون دسته‌بندی</td></tr>
+      <tr><td>Dashboard/UI</td><td>۲۰+</td><td>بیشترین استفاده</td></tr>
+      <tr><td>Prompt Engineering</td><td>۱۵+</td><td>الگوهای پرامپت</td></tr>
+      <tr><td>DevOps/Infra</td><td>۱۲+</td><td>وظایف زیرساخت</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="block-highlight">
+  <strong>منابع:</strong> <code>chat-groups-report.json</code> + <code>timeline_data.json</code><span class="badge-dot">ویژه</span>
+</div>
+<div class="card-glow" style="margin:1em;">
+  <h3 style="color:#6366f1;">زمان کاری</h3>
+  <p style="font-size:1.1em;">۲۰ روز فعال از ۳۱ روز — معادل ۵ ساعت کار موثر در روز (۸ ساعت حضور — ۴ ساعت رفت‌وآمد)</p>
+  <p style="font-size:1.1em; margin-top:.3rem;">کل زمان انسانی: <strong>~۱۰۰ ساعت در ماه</strong> | <a href="monthly-timeline.html" style="color:#059669;text-decoration:underline;">🔗 نمایش تایم‌لاین ماهانه</a></p>
+</div>
+</textarea>
+</section>
+
+<!-- ===== SLIDE 10: ACCURACY & BORROWED ===== -->
+<section data-markdown data-background="#fef3c7">
+<textarea data-template>
+<div style="display:flex;justify-content:center;padding:.5rem;">
+  <h2 style="color:#92400e;font-size:2em;">دقت پاسخ‌های ای‌جنت و بی‌حوصلگی</h2>
+</div>
+<div class="risk-high" style="margin:1em;">
+  <strong>الگوهای خطا در <code>scripts/dashboard.log</code></strong>
+  <ul style="list-style:none;padding:0.5rem 0 0 1.5rem;margin:.5rem 0;">
+    <li style="padding:0.3rem 0;">⚠ Authentication failed for: <code>/api/v1/move_to_project</code> تکرار</li>
+    <li style="padding:0.3rem 0;">⚠ Database connection timeout after 3 retries</li>
+    <li style="padding:0.3rem 0;">⚠ API rate limiting / 401 errors</li>
+  </ul>
+</div>
+<div class="card-glow" style="margin:1em;">
+  <h3 style="color:#92400e;">نتیجه‌گیری</h3>
+  <ul style="list-style:none;padding:0;margin:1rem 0;">
+    ✔ احراز هویت مبداء اغلب خطاها (~۶۰٪) ✔ دقت پاسخ کاهش می‌یابد بعد از ۴۵ دقیقه ✔ بی‌حوصلگی → تعامل کوتاه‌تر
+  </ul>
+</div>
+<div class="card-glow" style="margin:1em;">
+  <h3 style="color:#92400e;">راهکار پیشنهادی</h3>
+  <ul style="list-style:none;padding:0;margin:1rem 0;">
+    ✔ ذخیره خودکار هر ۳۰ دقیقه ✔ استراحة الزامی بعد از ۹۰ دقیقه ✔ به‌روزرسانی توکن قبل از انقضا ✔ داشبورد: مدت vs نرخ خطا
+  </ul>
+</div>
+</textarea>
+</section>
+
+<!-- ===== SLIDE 11: ACTIVITY & OUTCOMES ===== -->
+<section data-markdown data-background="#f0f4f8">
+<textarea data-template>
+<div style="display:flex;justify-content:center;padding:.5rem;">
+  <h2 style="color:#334155;font-size:2em;">اکتیویتی واچ و ماحصل (Outcomes)</h2>
+</div>
+<div class="card-glow" style="margin:1em;">
+  <h3 style="color:#6366f1;">اکتیویتی واچ — فعالیت‌های ویژه</h3>
+  <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
+    <div class="metric-stat"><div class="metric-val">۳ جلسه</div><div class="metric-lbl">روز ۱۱/۱۹/۲۳ اکتبر</div></div>
+    <div class="metric-stat"><div class="metric-val">۲.۷</div><div class="metric-lbl">میانگین روزهای سرپایی</div></div>
+    <div class="metric-stat"><div class="metric-val">۱۱، ۱۳، ۱۵</div><div class="metric-lbl">روزهایی با کاهش فعالیت</div></div>
+  </div>
+</div>
+<div class="card-glow" style="margin:1em;">
+  <h3 style="color:#6366f1;">ماحصل (Harvest) — محصولات نهایی</h3>
+  <ul style="list-style:none;padding:0;margin:1rem 0;">
+    ✔ Knowledge Hub — pgvector TF-IDF ۵۱۲-bad + FTS ✔ چت داشبورد — Kanban + ۱۶ گروه ✔ تایم‌لاین ماهانه
+  </ul>
+  <p style="margin-top:.8rem;font-size:1.2em;"><strong>سنکرین شده:</strong> <code>scripts/</code> → PostgreSQL → Metabase BI ✔ Backend LLM — OpenRouter (ai.adlr.ir)</p>
+</div>
+<div class="block-highlight">
+  <strong>منابع:</strong> <code>scripts/</code> + <code>llfs/</code> + <code>scripts/dashboard.log</code><span class="badge-dot">ویژه</span>
+</div>
+<div class="card-glow" style="margin:1em;">
+  <h3 style="color:#059669;">لینک‌های تایم‌لاین</h3>
+  <ul style="list-style:none;padding:0;margin:1rem 0;">
+    <li style="padding:0.3rem 0;">🔗 <a href="monthly-timeline.html" style="color:#059669;text-decoration:underline;">گزارش تایم‌لاین ماهانه — acober ۲۰۲۶</a></li>
+    <li style="padding:0.3rem 0;">🔗 <a href="timeline-2.html" style="color:#059669;text-decoration:underline;">تایم‌لاین افقی پیشرفته گزارش کار</a></li>
+  </ul>
+</div>
+</textarea>
+</section>
+
+<!-- ===== SLIDE 12: ROADMAP ===== -->
+<section data-markdown data-background="#e0f2f7">
+<textarea data-template>
+<div style="display:flex;justify-content:center;padding:.5rem;">
+  <h2 style="color:#166534;font-size:2em;">نقشه راه — Roadmap</h2>
+</div>
+<div class="card-glow" style="margin:1em;">
+  <h3 style="color:#334155;">روزانه</h3>
+  <ul style="list-style:none;padding:0;margin:1rem 0;">
+    ✔ mimocode-migrate — SQLite → PostgreSQL ✔ بررسی انقضای توکن (۲۰۲۶-۱۱-۰۱)
+  </ul>
+</div>
+<div class="card-glow" style="margin:1em;">
+  <h3 style="color:#334155;">هفته‌ای</h3>
+  <ul style="list-style:none;padding:0;margin:1rem 0;">
+    ✔ متریک‌های داشبورد ✔ بازدسته‌بندی چت‌ها (unassigned ۱۱۱ → <۳۰)
+  </ul>
+</div>
+<div class="card-glow" style="margin:1em;">
+  <h3 style="color:#334155;">ماهیانه</h3>
+  <ul style="list-style:none;padding:0;margin:1rem 0;">
+    ✔ باز تحلیل تایم‌لاین ✔ PostgreSQL VACUUM ✔ روتاسیون توکن
+  </ul>
+</div>
+<div class="card-glow" style="margin:1em;">
+  <h3 style="color:#334155;">پروژه (سه‌ماهه)</h3>
+  <ul style="list-style:none;padding:0;margin:1rem 0;">
+    ✔ Generative UI MVP ✔ چت بات سازمانی MVP ✔ GitOps سخت‌افزاری
+  </ul>
+</div>
+<div class="block-highlight">
+  <strong>منبع:</strong> plan 1792309319523 · <code>state/</code> files<span class="badge-dot">ویژه</span>
+</div>
+<div class="card-glow" style="margin:1em;">
+  <h3 style="color:#6366f1;">تخمین ساعت کار روزانه</h3>
+  <ul style="list-style:none;padding:0;margin:1rem 0;">
+    <li style="padding:0.4rem 0;">✔ ۸ ساعت حضور — ۴ ساعت رفت‌وآمد = <strong>۵ ساعت کار موثر در روز</strong></li>
+    <li style="padding:0.4rem 0;">✔ ۵ ساعت × ۲۰ روز کاری = <strong>۱۰۰ ساعت ماهانه</strong></li>
+    <li style="padding:0.4rem 0;">✔ربع‌ سالانه ≈ <strong>۳۰۰ ساعت کار هدفمند</strong></li>
+    <li style="padding:0.4rem 0;">✔ بازدهی estimating برای tareas restantes نقشه راه</li>
+  </ul>
+</div>
+<div class="card-glow" style="margin:1em;">
+  <h3 style="color:#059669;">تایم‌لاین 활동ی</h3>
+  <ul style="list-style:none;padding:0;margin:1rem 0;">
+    <li style="padding:0.4rem 0;">🔗 <a href="monthly-timeline.html" style="color:#059669;text-decoration:underline;">گزارش تایم‌لاین ماهانه — acober ۲۰۲۶</a></li>
+    <li style="padding:0.4rem 0;">🔗 <a href="timeline-2.html" style="color:#059669;text-decoration:underline;">تایم‌لاین افقی پیشرفته گزارش کار</a></li>
+    <li style="padding:0.4rem 0;">مشاهده اوج فعالیت‌ها: روزهای ۱۱، ۱۹، ۲۳ acober ۲۰۲۶</li>
+  </ul>
+</div>
+</textarea>
+</section>
+
+<!-- ===== SLIDE 13: ENVIRONMENT & INTERNET ===== -->
+<section data-markdown data-background="#f0f4f8">
+<textarea data-template>
+<div style="display:flex;justify-content:center;padding:.5rem;">
+  <h2 style="color:#334155;font-size:2em;">RAM + مستندات و محیط</h2>
+</div>
+<div class="card-glow" style="margin:1em;">
+  <h3 style="color:#6366f1;">محدودیت‌ها</h3>
+  <table class="reveal table">
+    <thead><tr><th>منبع</th><th>محدودیت</th></tr></thead>
+    <tbody>
+      <tr><td>pgvector فضا</td><td><code>/mnt/archive3</code> — تنگ</td></tr>
+      <tr><td>PGDB</td><td>۱۶ + pgvector روی :۵۴۳۶</td></tr>
+      <tr><td>TF-IDF</td><td>پایتون خالص — وابستگی‌های خارجی صفر</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="card-glow" style="margin:1em;">
+  <h3 style="color:#6366f1;">مستندات مورد نیاز</h3>
+  <ul style="list-style:none;padding:0;margin:1rem 0;">
+    ✔ راهنمای مهاجرت SQLite → PostgreSQL ✔ specification API داشبورد ✔ onboarding کاربران جدید ✔ رفع خطا (توکن/auth/sync)
+  </ul>
+</div>
+<div class="card-glow" style="margin:1em;">
+  <h3 style="color:#6366f1;">محیط موبایل</h3>
+  <ul style="list-style:none;padding:0;margin:1rem 0;">
+    ✔ Boot Linux از USB ✔ بدون pip شبکه — پایتون خالص ✔ Remote SSH به workstation الشركة
+  </ul>
+</div>
+</textarea>
+</section>
+
+<!-- ===== SLIDE 14: SLLM FOR ORGANIZATION DEPARTMENTS ===== -->
+<section data-markdown data-background="#10b981">
+<textarea data-template>
+<div style="display:flex;justify-content:center;padding:.5rem;">
+  <h2 style="color:white;font-size:2em;">SLLM برای بخش‌های سازمان</h2>
+</div>
+<div class="card-glow" style="margin:1em;background:rgba(255,255,255,0.9);border-radius:12px;">
+  <h3 style="color:#059669;text-align:right;">۱۰ قدم راه‌اندازی مدل‌های لغوی adapted</h3>
+  <ol style="direction:rtl;text-align:right;padding-right:2rem;margin:1rem 0;font-size:1.1em;">
+    <li>تشخیص نیاز هر Abteilung (پزشکی، Pfarrkassen) — ذخیره در research-report-data.json</li>
+    <li>استخراج نتایج SLLMهای موجود (nemotron, phi-3, llama-3 ۸B) و ارزیابی توانایی در حوزه‌های خاص</li>
+    <li>تهیه French/English/Persian prompts optimized برای هر département — caching results weekly</li>
+    <li>پیاده‌سازی routing intelligent — ارسال query به بهترین model بر اساس domain (cardiology, accounts, etc.)</li>
+    <li>ایجاد tool-use hooks — function calling برای access DB, CRM, managing system</li>
+    <li>Validation schema her Abteilung — خروجی JSON validated با inline validators Pydantic</li>
+    <li>Monitoring & metrics — dashboards per department: throughput, accuracy, token usage, latency</li>
+    <li>Security & compliance — role-based access per sensitiv department (بیمه, مالی, Personnel)</li>
+    <li>Continuous improvement — weekly feedback loop, fine-tuning candidate generation, cost-benefit analysis</li>
+  </ol>
+  <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid #60a5ba;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;font-size:0.85em;">
+      <div>⏱ زمان پاسخ: <strong>200-800ms</strong></div>
+      <div>💰 تخمین هزینه: <strong>$0.03 - $0.10/tok</strong></div>
+    </div>
+  </div>
+</div>
+</textarea>
+</section>
+
+<!-- ===== SLIDE 15: RISKS SUMMARY ===== -->
+<section data-markdown data-background="#fef3c7">
+<textarea data-template>
+<div style="display:flex;justify-content:center;padding:.5rem;">
+  <h2 style="color:#92400e;font-size:2em;">ریسک‌ها و ارزشیابی (Value Assessment)</h2>
+</div>
+<table class="reveal table">
+  <thead><tr><th>#</th><th>ریسک</th><th>شدت</th><th>اقدام اولی</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td><strong>انقضای توکن</strong> (۲۰۲۶-۱۱-۰۱)</td><td style="color:#ef4444;">بلند</td><td>refresh خودکار</td></tr>
+    <tr><td>2</td><td>خطای auth (۶۰٪ لاگ)</td><td style="color:#f59e0b;">متوسط</td><td>توکان rotuestas</td></tr>
+    <tr><td>3</td><td>فضا تنگ pgvector</td><td style="color:#f59e0b;">متوسط</td><td>مانیتور هجرت</td></tr>
+    <tr><td>4</td><td>۵۳٪ چت unclassified</td><td style="color:#3b82f6;">کم</td><td>بازدسته‌بندی</td></tr>
+  </tbody>
+</table>
+<div class="card-glow" style="margin:1em;">
+  <h3 style="color:#92400e;">ارزیابی پروژه</h3>
+  <p style="font-size:1.2em;"><strong>Benefit-Cost Ratio ≈ 1.29</strong> → پروژه ادامه می‌دهد با تمرکز بر کاهش هزینه‌ها.</p>
+  <p style="margin-top:.5rem;font-size:1.1em;">• انسان: ۴.۵ ساعت • ماشین: نامشخص • Tokens used: ~۵,۰۰۰ • کل هزینه: ~۱,۵۰۰,۰۰۰ ایران ریال</p>
+</div>
+</textarea>
+</section>
+<!-- ===== SLIDE 16: GAPGPT AS ORGANIZATIONAL CHAT ===== -->
+<section data-markdown data-background="#f0fdf4">
+<textarea data-template>
+<div style="display:flex;justify-content:center;padding:.5rem;">
+  <h2 style="color:#059669;font-size:2em;">Gapgpt — چت سازمانی</h2>
+</div>
+<div class="card-glow" style="margin:1em;">
+  <h3 style="color:#059669;margin-bottom:.8rem;">ویژگی‌های چت سازمانی</h3>
+  <ul style="list-style:none;padding:0;margin:1rem 0;">
+    <li style="padding:0.5rem 0;">• <strong>۲۱۱ چت · ۹۰۰ پیام · ۱۶ گروه موضوعی</strong></li>
+    <li style="padding:0.5rem 0;">• سنکرین اتوماتیک از gapgpt.app API</li>
+    <li style="padding:0.5rem 0;">• PostgreSQL به عنوان ذخیره چت‌ها</li>
+<li style="padding:0.5rem 0;">• یکپارچه‌سازی چت با <code>scripts/dashboard.py</code></li>
+    <li style="padding:0.5rem 0;">• یکپارچگی با LLM برای بخش‌های سازمانی</li>
+  </ul>
+</div>
+<div class="block-highlight" style="margin:1em;">
+  <strong>نقش:</strong> یکپارچه‌سازی چت داخلی با gapgpt برای ارتباط سازمانی
+</div>
+</textarea>
+</section>
+<!-- ===== SLIDE 17: METABASE AS BI DASHBOARD ===== -->
+<section data-markdown data-background="#fef3c7">
+<textarea data-template>
+<div style="display:flex;justify-content:center;padding:.5rem;">
+  <h2 style="color:#92400e;font-size:2em;">Metabase — داشبورد BI</h2>
+</div>
+<div class="card-glow" style="margin:1em;">
+  <h3 style="color:#92400e;margin-bottom:.8rem;">معماری BI با Metabase</h3>
+  <ul style="list-style:none;padding:0;margin:1rem 0;">
+    <li style="padding:0.5rem 0;">• <strong>PostgreSQL 16 + pgvector</strong> — پایش داده‌های gapgpt_chats</li>
+    <li style="padding:0.5rem 0;">• Metabase به عنوان لایه نمایشی (BI layer)</li>
+    <li style="padding:0.5rem 0;">• داشبورد KPIها و معیارهای چت و گروه‌ها</li>
+    <li style="padding:0.5rem 0;">• 연결ی به <code>dashboard.py</code> API endpoints</li>
+    <li style="padding:0.5rem 0;">• گزارش‌گیری فراخत (on-demand reporting)</li>
+  </ul>
+</div>
+<div class="block-highlight" style="margin:1em;">
+  <strong>منابع:</strong> Metabase BI · KNOWLEDGE_HUB.md pgvector · dashboard.py API
+</div>
+</textarea>
+</section>
+</div> <!-- slides -->
+</div> <!-- reveal -->
+<script src="assets/markdown.js"></script>
+<script src="assets/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: true,
+    width: 1024,
+    height: 576,
+    margin: 0.04,
+    minScale: 0.1,
+    maxScale: 1.5,
+    center: true,
+    controls: true,
+    progress: true,
+    transition: 'slide',
+    transitionSpeed: 'fast',
+    mouseWheel: true,
+    plugins: [ RevealMarkdown ],
+    keyboard: {
+      13: 'next',
+      27: 'prev',
+      37: 'slide-left',
+      39: 'slide-right',
+      38: 'page-up',
+      40: 'page-down'
+    }
+  });
+  
+  function toggleDarkMode() {
+    var html = document.documentElement;
+    if (html.classList.contains('dark')) {
+      html.classList.remove('dark');
+      document.getElementById('theme').href = 'assets/theme-white.css';
+    } else {
+      html.classList.add('dark');
+      document.getElementById('theme').href = 'assets/theme-black.css';
+    }
+    localStorage.setItem('prefers-dark', html.classList.contains('dark'));
+  }
+  
+  if (localStorage.getItem('prefers-dark') === 'true') {
+    document.documentElement.classList.add('dark');
+    document.getElementById('theme').href = 'assets/theme-black.css';
+  }
+</script>
+</body>
+</html>

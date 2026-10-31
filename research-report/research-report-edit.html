@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>گزارش تحقیقاتی — ویرایش آزاد / Editable Report</title>
+<style>
+  body { font-family: 'Vazirmatn', Tahoma, sans-serif; background: #f8fafc; color: #0f172a; padding: 2rem; direction: rtl; }
+  .container { max-width: 1400px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 3rem; }
+  header h1 { color: #1e293b; font-size: 2rem; }
+  .badge { background: #6366f1; color: white; padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.85rem; }
+  .section-card { background: white; border-radius: 12px; padding: 1.5rem; margin: 1rem 0; box-shadow: 0 4px 16px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
+  .section-card h2 { color: #6366f1; font-size: 1.4rem; margin-bottom: 1rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; }
+  textarea { width: 100%; font-family: 'Vazirmatn', monospace; font-size: 0.95rem; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; direction: rtl; line-height: 1.6; min-height: 120px; resize: vertical; }
+  input[type="text"] { width: 100%; padding: 0.5rem; border: 1px solid #cbd5e1; border-radius: 6px; font-family: 'Vazirmatn', Tahoma, sans-serif; font-size: 0.95rem; direction: rtl; }
+  label { font-size: 0.85rem; color: #475569; font-weight: 600; margin-bottom: 0.3rem; display: block; direction: rtl; }
+  .save-box { background: #fef3c7; border: 1px solid #f59e0b; border-radius: 8px; padding: 1rem; margin-top: 1rem; text-align: center; }
+  .save-btn { background: #6366f1; color: white; border: none; padding: 0.75rem 2rem; font-family: 'Vazirmatn', sans-serif; font-size: 1rem; border-radius: 6px; cursor: pointer; }
+  .save-btn:hover { background: #4f46e5; }
+  .download-btn { background: #10b981; color: white; border: none; padding: 0.6rem 1.5rem; font-family: 'Vazirmatn', sans-serif; font-size: 0.9rem; border-radius: 6px; cursor: pointer; margin-left: 1rem; }
+  .field-group { margin-bottom: 1rem; }
+  .metric-box { display: inline-block; background: linear-gradient(135deg,#6366f1,#8b5cf6); color:white; padding:0.6rem 1.2rem; border-radius:8px; margin:0.25rem; font-weight:700; }
+  .list-item { background:#f8fafc; padding:0.5rem 1rem; border-radius:6px; margin:0.25rem 0; display:flex; gap:0.5rem; align-items:center; }
+  .list-item input { flex:1; }
+  .remove-item { background:#ef4444; color:white; border:none; border-radius:4px; padding:0.2rem 0.6rem; cursor:pointer; font-size:0.8rem; }
+  .add-item { color:#10b981; cursor:pointer; font-size:0.85rem; margin-top:0.25rem; display:block; }
+  .risk-table { width:100%; border-collapse:collapse; margin-top:1rem; }
+  .risk-table th, .risk-table td { border:1px solid #e2e8f0; padding:0.6rem; text-align:right; }
+  .risk-table th { background:#6366f1; color:white; }
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <h1>گزارش تحقیقاتی gapgpt — ویرایش بخش‌ها</h1>
+  <p>تغییرات هر بخش را در کادرها انجام دهید. دکمه ذخیره به فایل نوشته می‌شود.</p>
+</header>
+
+<div class="save-box">
+  <button class="save-btn" onclick="saveToFile()">ذخیره تمام تغییرات در فایل JSON</button>
+  <button class="download-btn" onclick="downloadJSON()">دانلود فایل JSON</button>
+  <p id="status"></p>
+</div>
+
+<div id="sections"></div>
+</div>
+
+<script>
+  // Embedded data — works offline (no fetch needed)
+  var __INITIAL_DATA__ = {
+    "meta": {"project": "gapgpt", "version": "2.0", "generated_at": "2026-10-28T00:20:00Z"},
+    "sections": {
+      "slide-1-title": {"title": "گزارش تحقیقاتی جامع", "subtitle": "تحلیل داده‌ها، معماری سیستم و نقشه راه تولیدی", "metrics": ["211", "900", "16", "29"]},
+      "slide-2-agenda": {"topics": ["منابع محدود - تشکر نه تعنه", "فوندانسیون", "پرسشنامه HR محصول جدید", "آقای کیانی", "آنچه گذشت", "دقت در پاسخ‌های ای‌جنت", "بی‌حوصلگی", "اشتباهات", "مدل‌رایتر + proxy", "مولتی‌ایجنت", "گیت‌اپس", "داشبورد/BI", "اکتیویتی واچ", "ماحصل", "روزشمار", "چت بات سازمانی", "BI", "Generative UI", "پراسس میکر", "فراگستر / سانیران", "نقشه راه", "RAM + مستندات", "لینوکس / USB / هارد شرکت", "مصرف اینترنت شخصی", "تقاضا", "خلاصه", "گزارش HTML5"]},
+      "slide-3-data-sources": {"sources": ["chat-groups-report.json", "timeline_data.json", "llfs/chats/*.md", "llfs/reports/*.md", "scripts/dashboard.py", "scripts/dashboard.log", "README.md"], "error": "Authentication failed for: /api/v1/move_to_project"},
+      "slide-4-gitops": {"devops": ["2009 DevOps Days -- گزنته", "2012 First State of DevOps", "2016 DORA metrics"], "gitops": ["Git version-controlled", "code review", "rollback via VCS"]},
+      "slide-5-bi": {"bi_facts": ["Richard Millar Devens 1865", "Hans Peter Luhn 1958", "Howard Dresner 1989", "Forrester definition"], "functions": ["Reporting", "OLAP", "Dashboard", "Data mining", "Process mining", "Predictive analytics"]},
+      "slide-6-generative-ai": {"models": ["2017 Transformer", "2018 GPT-1", "2022 ChatGPT"], "risks": ["Hallucinations", "Deepfakes", "Copyright", "Environmental"]},
+      "slide-7-model-router": {"sources": ["connection/", "config/", ".env.docker"], "proxy": "in progress", "tokens": "100"},
+      "slide-8-multiagent": {"protocol": ["SSOT", "leases TTL=120s", "worktrees", "tasks.json", "team_log.md"]},
+      "slide-9-what-happened": {"data": ["211 chats", "900 messages", "16 groups", "peak days 11/19/23"], "unassigned": "53% (111 chats)"},
+      "slide-10-accuracy": {"patterns": ["Authentication failed", "DB timeout after 3", "API rate limit / 401"], "recommendations": ["auto-save 30m", "break after 90m", "refresh token before expiry", "dashboard: duration vs error"]},
+      "slide-11-outcomes": {"activity": ["3 sessions", "2.7 avg weekend", "gaps"], "harvest": ["Knowledge Hub pgvector TF-IDF", "Chat Dashboard Kanban", "Timeline", "Migration"]},
+      "slide-12-roadmap": {"daily": ["mimocode-migrate — SQLite → PostgreSQL", "بازرسی انقضای توکن (۲۰۲۶-۱۱-۰۱)", "این روزانه ۸ ساعت حضور — ۴ ساعت رفت‌وآمد = ۵ ساعت کار موثر"], "weekly": ["متریک‌های داشبورد", "بازدسته‌بندی چت‌ها (unassigned ۱۱۱ → <۳۰)", "بررسی iler پیشرفت ۵ ساعتی روزانه"], "monthly": ["باز تحلیل تایم‌لاین", "PostgreSQL VACUUM", "روتاسیون توکن", "جمع‌بندی ۵ ساعتی × ۲۰ روز کاری = ۱۰۰ ساعت ماهانه"], "quarterly": ["Generative UI MVP", "چتبات سازمانی MVP", "GitOps سخت‌افزاری", "این ربع تقریباً ۳۰۰ ساعت کار هدفمند"]},
+      "slide-13-environment": {"limits": ["pgvector /mnt/archive3 tight", "PG 16 + pgvector :5436", "TF-IDF pure Python"], "needs_docs": ["SQLite->PG migration guide", "API spec", "onboarding", "troubleshooting"]},
+      "slide-14-risks-value": {"risks": [{"id": 1, "risk": "Token expiry (2026-11-01)", "severity": "high", "action": "refresh auto"}, {"id": 2, "risk": "Auth errors (60%)", "severity": "medium", "action": "token rotate"}, {"id": 3, "risk": "Disk tight pgvector", "severity": "medium", "action": "monitor"}, {"id": 4, "risk": "53% unclassified", "severity": "low", "action": "reclassify"}], "benefit_cost": 1.29}
+    }
+  };
+
+  // Render section based on type
+  function renderSection(key, sec) {
+    const div = document.createElement('div');
+    div.className = 'section-card';
+    div.id = 'sec-' + key;
+    let html = `<h2>${sec.title || key}</h2>`;
+
+    if (sec.title) {
+      html += `<div class="field-group"><label>عنوان</label><textarea data-key="${key}.title">${sec.title}</textarea></div>`;
+    }
+    if (sec.subtitle) {
+      html += `<div class="field-group"><label>زیرعنوان</label><textarea data-key="${key}.subtitle">${sec.subtitle}</textarea></div>`;
+    }
+    if (sec.metrics) {
+      html += `<div class="field-group"><label>شاخص‌ها (هر خط یک مورد)</label><textarea data-key="${key}.metrics">${sec.metrics.join('\n')}</textarea></div>`;
+    }
+    if (sec.topics) {
+      html += `<div class="field-group"><label>موضوعات (هر خط یک مورد)</label><textarea data-key="${key}.topics">${sec.topics.join('\n')}</textarea></div>`;
+    }
+    if (sec.sources) {
+      html += `<div class="field-group"><label>منابع (هر خط یک مورد)</label><textarea data-key="${key}.sources">${sec.sources.join('\n')}</textarea></div>`;
+    }
+    if (sec.error) {
+      html += `<div class="field-group"><label>خطای شناسایی‌شده</label><textarea data-key="${key}.error">${sec.error}</textarea></div>`;
+    }
+    if (sec.devops) {
+      html += `<div class="field-group"><label>DevOps (هر خط یک مورد)</label><textarea data-key="${key}.devops">${sec.devops.join('\n')}</textarea></div>`;
+    }
+    if (sec.gitops) {
+      html += `<div class="field-group"><label>GitOps (هر خط یک مورد)</label><textarea data-key="${key}.gitops">${sec.gitops.join('\n')}</textarea></div>`;
+    }
+    if (sec.bi_facts) {
+      html += `<div class="field-group"><label>حقایق BI (هر خط یک مورد)</label><textarea data-key="${key}.bi_facts">${sec.bi_facts.join('\n')}</textarea></div>`;
+    }
+    if (sec.functions) {
+      html += `<div class="field-group"><label>توابع BI (هر خط یک مورد)</label><textarea data-key="${key}.functions">${sec.functions.join('\n')}</textarea></div>`;
+    }
+    if (sec.models) {
+      html += `<div class="field-group"><label>مدل‌ها (هر خط یک مورد)</label><textarea data-key="${key}.models">${sec.models.join('\n')}</textarea></div>`;
+    }
+    if (sec.risks) {
+      html += `<div class="field-group"><label>ریسک‌ها</label>`;
+      html += `<table class="risk-table"><thead><tr><th>#</th><th>ریسک</th><th>شدت</th><th>اقدام</th></tr></thead><tbody>`;
+      sec.risks.forEach((r,i)=> {
+        html += `<tr>
+          <td>${r.id}</td>
+          <td><input data-key="${key}.risks.${i}.risk" value="${r.risk}"></td>
+          <td><input data-key="${key}.risks.${i}.severity" value="${r.severity}"></td>
+          <td><input data-key="${key}.risks.${i}.action" value="${r.action}"></td>
+        </tr>`;
+      });
+      html += `</tbody></table>`;
+      html += `<div class="field-group"><label>ریسک جدید</label>
+        <input data-key="${key}.newRiskRisk" placeholder="عنوان ریسک">
+        <input data-key="${key}.newRiskSev" placeholder="شدت">
+        <input data-key="${key}.newRiskAction" placeholder="اقدام">
+      </div>`;
+      html += `</div>`;
+    }
+    if (sec.benefit_cost !== undefined) {
+      html += `<div class="field-group"><label>نسبت سود-هزینه (Benefit-Cost)</label><input data-key="${key}.benefit_cost" value="${sec.benefit_cost}"></div>`;
+    }
+    if (sec.protocol) {
+      html += `<div class="field-group"><label>پروتکل (هر خط یک مورد)</label><textarea data-key="${key}.protocol">${sec.protocol.join('\n')}</textarea></div>`;
+    }
+    if (sec.patterns) {
+      html += `<div class="field-group"><label>الگوهای خطا (هر خط یک مورد)</label><textarea data-key="${key}.patterns">${sec.patterns.join('\n')}</textarea></div>`;
+    }
+    if (sec.recommendations) {
+      html += `<div class="field-group"><label>توصیه‌ها (هر خط یک مورد)</label><textarea data-key="${key}.recommendations">${sec.recommendations.join('\n')}</textarea></div>`;
+    }
+    if (sec.data) {
+      html += `<div class="field-group"><label>داده‌ها (هر خط یک مورد)</label><textarea data-key="${key}.data">${sec.data.join('\n')}</textarea></div>`;
+    }
+    if (sec.activity) {
+      html += `<div class="field-group"><label>فعالیت‌ها (هر خط یک مورد)</label><textarea data-key="${key}.activity">${sec.activity.join('\n')}</textarea></div>`;
+    }
+    if (sec.harvest) {
+      html += `<div class="field-group"><label>ماحصل‌ها (هر خط یک مورد)</label><textarea data-key="${key}.harvest">${sec.harvest.join('\n')}</textarea></div>`;
+    }
+    if (sec.daily) {
+      html += `<div class="field-group"><label>روزانه (هر خط یک مورد)</label><textarea data-key="${key}.daily">${sec.daily.join('\n')}</textarea></div>`;
+    }
+    if (sec.weekly) {
+      html += `<div class="field-group"><label>هفته‌ای (هر خط یک مورد)</label><textarea data-key="${key}.weekly">${sec.weekly.join('\n')}</textarea></div>`;
+    }
+    if (sec.monthly) {
+      html += `<div class="field-group"><label>ماهانه (هر خط یک مورد)</label><textarea data-key="${key}.monthly">${sec.monthly.join('\n')}</textarea></div>`;
+    }
+    if (sec.quarterly) {
+      html += `<div class="field-group"><label>سه‌ماهه (هر خط یک مورد)</label><textarea data-key="${key}.quarterly">${sec.quarterly.join('\n')}</textarea></div>`;
+    }
+    if (sec.limits) {
+      html += `<div class="field-group"><label>محدودیت‌ها (هر خط یک مورد)</label><textarea data-key="${key}.limits">${sec.limits.join('\n')}</textarea></div>`;
+    }
+    if (sec.needs_docs) {
+      html += `<div class="field-group"><label>مستندات مورد نیاز (هر خط یک مورد)</label><textarea data-key="${key}.needs_docs">${sec.needs_docs.join('\n')}</textarea></div>`;
+    }
+    if (sec.unassigned) {
+      html += `<div class="field-group"><label>چت‌های بدون دسته‌بندی</label><input data-key="${key}.unassigned" value="${sec.unassigned}"></div>`;
+    }
+    if (sec.proxy !== undefined) {
+      html += `<div class="field-group"><label>وضعیت پراکسی</label><input data-key="${key}.proxy" value="${sec.proxy}"></div>`;
+    }
+    if (sec.tokens !== undefined) {
+      html += `<div class="field-group"><label>تعداد توکن‌های آزاد</label><input data-key="${key}.tokens" value="${sec.tokens}"></div>`;
+    }
+
+    div.innerHTML = html;
+    return div;
+  }
+
+  // Init from embedded data
+  function init() {
+    const data = __INITIAL_DATA__;
+    const container = document.getElementById('sections');
+    Object.entries(data.sections).forEach(([key, sec]) => {
+      container.appendChild(renderSection(key, sec));
+    });
+    window.__reportData = data;
+  }
+  init();
+
+  function serialize() {
+    const data = JSON.parse(JSON.stringify(window.__reportData));
+    document.querySelectorAll('[data-key]').forEach(el => {
+      const path = el.getAttribute('data-key').split('.');
+      let obj = data;
+      path.forEach((p,i)=> {
+        if (i === path.length-1) {
+          const val = el.tagName === 'TEXTAREA' ? el.value.split('\n') : el.value;
+          obj[p] = val;
+        } else {
+          const m = p.match(/^(.+)\.(\d+)$/);
+          if (m) {
+            obj[m[1]][m[2]] = obj[m[1]][m[2]] || {};
+            obj = obj[m[1]][m[2]];
+          } else {
+            obj[p] = obj[p] || {};
+            obj = obj[p];
+          }
+        }
+      });
+    });
+    return data;
+  }
+
+  function saveToFile() {
+    const data = serialize();
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'research-report-data.json';
+    a.click();
+    document.getElementById('status').textContent = 'فایل آماده دانلود است — فایل را در reports/ ذخیره کنید.';
+  }
+
+  function downloadJSON() {
+    saveToFile();
+  }
+</script>
+</body>
+</html>

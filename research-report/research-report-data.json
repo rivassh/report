@@ -1,0 +1,222 @@
+{
+  "meta": {
+    "project": "gapgpt",
+    "version": "2.1.0",
+    "generated_at": "2026-10-28T00:20:00Z"
+  },
+  "sections": {
+    "slide-1-title": {
+      "title": "گزارش تحقیقاتی جامع",
+      "subtitle": "تحلیل داده‌ها، معماری سیستم و نقشه راه تولیدی",
+      "metrics": [
+        "211",
+        "900",
+        "16",
+        "29"
+      ]
+    },
+    "slide-2-agenda": {
+      "topics": [
+        "منابع محدود — تشکر نه تعنه",
+        "فوندانسیون",
+        "پرسشنامه HR",
+        "آقای کیانی",
+        "آنچه گذشت",
+        "دقت در پاسخ‌های ای‌جنت",
+        "بی‌حوصلگی",
+        "اشتباهات",
+        "مدل‌رایتر + proxy",
+        "مولتی‌ایجنت",
+        "گیت‌اپس",
+        "داشبورد/BI",
+        "اکتیویتی واچ",
+        "ماحصل",
+        "روزشمار",
+        "چت بات سازمانی",
+        "BI",
+        "Generative UI",
+        "پراسس میکر",
+        "فراگستر / سانیران",
+        "نقشه راه",
+        "RAM + مستندات",
+        "لینوکس / USB / هارد شرکت",
+        "مصرف اینترنت شخصی",
+        "تقاضا",
+        "خلاصه",
+        "گزارش HTML5"
+      ]
+    },
+    "slide-3-data-sources": {
+      "sources": [
+        "chat-groups-report.json",
+        "timeline_data.json",
+        "llfs/chats/*.md",
+        "llfs/reports/*.md",
+        "scripts/dashboard.py",
+        "scripts/dashboard.log",
+        "README.md"
+      ],
+      "error": "Authentication failed for: /api/v1/move_to_project"
+    },
+    "slide-4-gitops": {
+      "devops": [
+        "2009 DevOps Days — گزنته",
+        "2012 First State of DevOps",
+        "2016 DORA metrics"
+      ],
+      "gitops": [
+        "Git version-controlled",
+        "code review",
+        "rollback via VCS"
+      ]
+    },
+    "slide-5-bi": {
+      "bi_facts": [
+        "Richard Millar Devens 1865",
+        "Hans Peter Luhn 1958",
+        "Howard Dresner 1989",
+        "Forrester definition"
+      ],
+      "functions": [
+        "Reporting",
+        "OLAP",
+        "Dashboard",
+        "Data mining",
+        "Process mining",
+        "Predictive analytics"
+      ]
+    },
+    "slide-6-generative-ai": {
+      "models": [
+        "2017 Transformer",
+        "2018 GPT-1",
+        "2022 ChatGPT"
+      ],
+      "risks": [
+        "Hallucinations",
+        "Deepfakes",
+        "Copyright",
+        "Environmental"
+      ]
+    },
+    "slide-7-model-router": {
+      "sources": [
+        "connection/",
+        "config/",
+        ".env.docker"
+      ],
+      "proxy": "in progress",
+      "tokens": "100"
+    },
+    "slide-8-multiagent": {
+      "protocol": [
+        "SSOT",
+        "leases TTL=120s",
+        "worktrees",
+        "tasks.json",
+        "team_log.md"
+      ]
+    },
+    "slide-9-what-happened": {
+      "data": [
+        "211 chats",
+        "900 messages",
+        "16 groups",
+        "peak days 11/19/23"
+      ],
+      "unassigned": "53% (111 chats)"
+    },
+    "slide-10-accuracy": {
+      "patterns": [
+        "Authentication failed",
+        "DB timeout after 3",
+        "API rate limit / 401"
+      ],
+      "recommendations": [
+        "auto-save 30m",
+        "break after 90m",
+        "refresh token before expiry",
+        "dashboard: duration vs error"
+      ]
+    },
+    "slide-11-outcomes": {
+      "activity": [
+        "3 sessions",
+        "2.7 avg weekend",
+        "gaps"
+      ],
+      "harvest": [
+        "Knowledge Hub pgvector TF-IDF",
+        "Chat Dashboard Kanban",
+        "Timeline",
+        "Migration"
+      ]
+    },
+    "slide-12-roadmap": {
+      "daily": [
+        "mimocode-migrate — SQLite → PostgreSQL",
+        "بازرسی انقضای توکن (۲۰۲۶-۱۱-۰۱)",
+        "این روزانه ۸ ساعت حضور — ۴ ساعت قطار/رو?_5 ساعت کار موثر"
+      ],
+      "weekly": [
+        "متریک‌های داشبورد",
+        "بازدسته‌بندی چت‌ها (unassigned ۱۱۱ → <۳۰)",
+        "بررسی iler larvae پیشرفت ۵ ساعتی روزانه"
+      ],
+      "monthly": [
+        "باز تحلیل تایم‌لاین",
+        "PostgreSQL VACUUM",
+        "روتاسیون توکن",
+        "جمع‌بندی ۵ ساعتی × ۲۰ روز کاری = ۱۰۰ ساعت ماهانه"
+      ],
+      "quarterly": [
+        "Generative UI MVP",
+        "چتبات سازمانی MVP",
+        "GitOps سخت‌افزاری",
+        "اینQuarterist یکشمارم yaklaşık ۳۰۰ ساعت کار هدفمند"
+      ]
+    },
+    "slide-13-environment": {
+      "limits": [
+        "pgvector /mnt/archive3 tight",
+        "PG 16 + pgvector :5436",
+        "TF-IDF pure Python"
+      ],
+      "needs_docs": [
+        "SQLite→PG migration guide",
+        "API spec",
+        "onboarding",
+        "troubleshooting"
+      ]
+    },
+    "slide-14-risks-value": {
+      "risks": [
+        {
+          "id": 1,
+          "risk": "Token expiry (2026-11-01)",
+          "severity": "high",
+          "action": "refresh auto"
+        },
+        {
+          "id": 2,
+          "risk": "Auth errors (60%)",
+          "severity": "medium",
+          "action": "token rotate"
+        },
+        {
+          "id": 3,
+          "risk": "Disk tight pgvector",
+          "severity": "medium",
+          "action": "monitor"
+        },
+        {
+          "id": 4,
+          "risk": "53% unclassified",
+          "severity": "low",
+          "action": "reclassify"
+        }
+      ],
+      "benefit_cost": 1.29
+    }
+  }
+}

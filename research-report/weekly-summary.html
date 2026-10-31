@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>گزارش هفتگی پروژه gapgpt</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <style>
+        body { font-family: 'Vazirmatn', sans-serif; }
+        .slide { min-height: 80vh; padding: 2rem; border-bottom: 1px solid saddlebrown; }
+        .day { padding: 0.5rem 1rem; margin: 0.2rem; display: inline-block; background: #e2e8f0; color: #0f172a; border-radius: 0.5rem; font-size: 0.85rem; }
+        .progress-bar { height: 8px; background: #cbd5e1; border-radius: 4px; margin-top: 1rem; overflow: hidden; }
+        .progress-fill { height: 100%; background: #3b82f6; width: 0%; transition: width 0.3s; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen">
+
+    <!-- Slide 1: هفته اول - شروع progetto -->
+    <div class="slide">
+        <h2 class="text-2xl font-bold mb-6">هفته اول: تأسیس پایه progetto gapgpt</h2>
+        <div class="flex gap-2 mb-6">
+            <span class="day">شنبه</span>
+            <span class="day">یکشنبه</span>
+            <span class="day">دوشنبه</span>
+            <span class="day">سه‌شنبه</span>
+            <span class="day">چهارشنبه</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 20%"></div>
+        </div>
+        <div class="mt-4 text-sm text-slate-500">
+            • لانچ پروژه gapgpt: Docker toolkit scaffold (PostgreSQL + Metabase)<br>
+            • نوشتن اسکریپت‌های پایه: sync_chats.py, health_check.sh, client.py<br>
+            • طراحی دیتابیس: جداول chats و messages<br>
+            • تنظیم Makefile برای build/run/health check
+        </div>
+    </div>
+
+    <!-- Slide 2: هفته دوم - پیشرفت میانی -->
+    <div class="slide">
+        <h2 class="text-2xl font-bold mb-6">هفته دوم: پایداری همگام‌سازی</h2>
+        <div class="flex gap-2 mb-6">
+            <span class="day">شنبه</span>
+            <span class="day">یکشنبه</span>
+            <span class="day">دوشنبه</span>
+            <span class="day">سه‌شنبه</span>
+            <span class="day">چهارشنبه</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 45%"></div>
+        </div>
+        <div class="mt-4 text-sm text-slate-500">
+            • به‌کارگیری audit trail برای پایداری تراکنش‌ها (commit 6e71e73)<br>
+            • تست و پایدار‌سازی عملیات همگام‌سازی دیتابیس<br>
+            • pathogenesis الگوهای UX داشبورد (備役)<br>
+            • پیش‌نویس تفکیک دامنه gapgpt و SIMA
+        </div>
+    </div>
+
+    <!-- Slide 3: هفته سوم - تولید محتوا اصلی -->
+    <div class="slide">
+        <h2 class="text-2xl font-bold mb-6">هفته سوم: تولید محتوای اصلی (گزارش‌ها و داشبورد)</h2>
+        <div class="flex gap-2 mb-6">
+            <span class="day">شنبه</span>
+            <span class="day">یکشنبه</span>
+            <span class="day">دوشنبه</span>
+            <span class="day">سه‌شنبه</span>
+            <span class="day">چهارشنبه</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 75%"></div>
+        </div>
+        <div class="mt-4 text-sm text-slate-500">
+            • ارائه Reveal.js ۱۴ اسلایدی با ۲۹ موضوع تحلیلی<br>
+            • گزارش مفصل Markdown: Foundations، Infrastructure، Outcomes، Roadmap<br>
+            • داشبورد یک‌نگاه: ۲۱۱ چت، ۹۰۰ پیام، ۱۶ گروه<br>
+            • استقرار Knowledge Hub با pgvector (TF-IDF ۵۱۲بعدی)<br>
+            • تدوین CONSTITUTION.md: ۵ قانون گزارش‌دهی
+        </div>
+    </div>
+
+    <!-- Slide 4: هفته چهارم - نهایی‌سازی و Deploy -->
+    <div class="slide">
+        <h2 class="text-2xl font-bold mb-6">هفته چهارم: نهایی‌سازی، PDF و استقرار</h2>
+        <div class="flex gap-2 mb-6">
+            <span class="day">شنبه</span>
+            <span class="day">یکشنبه</span>
+            <span class="day">دوشنبه</span>
+            <span class="day">سه‌شنبه</span>
+            <span class="day">چهارشنبه</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 100%"></div>
+        </div>
+        <div class="mt-4 text-sm text-slate-500">
+            • ✅ تولید PDF از detailed-report.md (wkhtmltopdf)<br>
+            • ✅ رفع ۴۰۴ nginx و استقرار در rm.adlr.ir/research-report/<br>
+            • ✅ جمع‌آوری تمام Assets reports/<br>
+            • ✅ احتمال Constitution Rules ۱-۵ در تمام پاسخ‌ها<br>
+            • 📊 آمار نهایی: ۲۱۱ چت، ۹۰۰ پیام، ۱۶ گروه، ۲۹ موضوع، BCR ۱.۲۹
+        </div>
+    </div>
+
+</body>
+</html>

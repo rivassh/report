@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تایم‌لاین پروژه‌ها — gapgpt | گزارش کار</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <style>
+        body { font-family: 'Vazirmatn', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .scroll-snap-container { scroll-snap-type: x mandatory; }
+        .scroll-snap-item { scroll-snap-align: start; }
+        .scroll-snap-item { scroll-snap-align: start; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen py-10 px-4 flex items-center justify-center transition-colors duration-300">
+    <div class="w-full max-w-5xl bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-100 dark:border-slate-800 p-6 md:p-8 relative overflow-hidden transition-colors duration-300">
+        <!-- دکمه تغییر تم (Light/Dark Toggle) -->
+        <button onclick="toggleDarkMode()" class="absolute top-6 left-6 p-2.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer" title="تغییر حالت نمایش">
+            <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+        </button>
+
+        <div class="mb-8 pb-4 border-b border-slate-200 dark:border-slate-700">
+            <h1 class="text-2xl font-extrabold text-slate-900 dark:text-white">تایم‌لاین انجام شده — gapgpt</h1>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">اکتبر ۱۴۰۵ | برای باز کردن جزئیات روی کارت‌ها کلیک کنید</p>
+        </div>
+
+        <nav class="nav-bar mb-6 flex gap-2 justify-center">
+            <a href="index.html" class="nav-btn">📊 ارائه اصلی</a>
+            <a href="one-glance.html" class="nav-btn">📄 یک‌نگاه</a>
+            <a href="detailed-report.md" class="nav-btn">📋 مفصل</a>
+        </nav>
+
+        <div class="relative group">
+            <button onclick="scrollTimeline('right')" class="absolute -right-4 top-1/2 -translate-y-1/2 z-20 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 p-3 rounded-full shadow-lg border border-slate-200 dark:border-slate-700 opacity-0 group-hover:opacity-100 transition-opacity hover:scale-105 cursor-pointer hidden md:flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
+            <button onclick="scrollTimeline('left')" class="absolute -left-4 top-1/2 -translate-y-1/2 z-20 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 p-3 rounded-full shadow-lg border border-slate-200 dark:border-slate-700 opacity-0 group-hover:opacity-100 transition-opacity hover:scale-105 cursor-pointer hidden md:flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+            <div id="timeline-scroll" class="flex gap-6 overflow-x-auto no-scrollbar scroll-snap-container pb-6 pt-2 px-2 scroll-smooth">
+
+                <!-- Card 1: Initial Setup & Foundation (v1.0) -->
+                <div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50 dark:bg-slate-900 rounded-2xl p-5">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500" title="v1.0">v1.0</span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300">تکمیل‌شده</span>
+                        </div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">۱۴۰۵-۰۷</div>
+                    </div>
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-emerald-600 dark:emerald-400 font-medium">تکمیل‌شده</span>
+                        <span class="text-slate-400">۲۷-۲۷</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">تأسیس زیرساخت gapgpt اولیه</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">توسعه Docker toolkit شامل PostgreSQL، Metabase و API interaction. شامل sync_chats.py، batch_move.py، health_check.sh و client.py. شیمای پایه پروژه gapgpt.</p>
+                    <div class="mt-3 pt-2 border-t border-slate-200 dark:border-slate-700">
+                        <p class="text-xs text-slate-400">۵۵۵ توکن / ۴۵ دقیقه انسانی</p>
+                    </div>
+                </div>
+
+                <!-- Card 2: Sync Audit & Database Reliability (v1.0) -->
+                <div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50 dark:bg-slate-900 rounded-2xl p-5">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="w-2.5 h-2.5 rounded-full bg-amber-500" title="v1.0">v1.0</span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-900 text-amber-700 dark:text-amber-300">تکمیل‌شده</span>
+                        </div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">۲۷-۲۷</div>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">بازبینی و پایداری دیتابیس</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">پیگیری دقیق آیندگاری دیتابیس با sync_chats.py و health_check.sh. افزایش اعتماد به منابع داده.</p>
+                    <div class="mt-3 pt-2 border-t border-slate-200 dark:border-slate-700">
+                        <p class="text-xs text-slate-400">۵۵ توکن / ۴۵ دقیقه انسانی</p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Dashboard Fix (v1.1) -->
+                <div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50 dark:bg-slate-900 rounded-2xl p-5">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="w-2.5 h-2.5 rounded-full bg-cyan-500" title="v1.1">v1.1</span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-cyan-50 dark:bg-cyan-900 text-cyan-700 dark:text-cyan-300">تکمیل‌شده</span>
+                        </div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">۲۸-۰۸</div>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">بهبود UX داشبورد</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">فعال‌سازی active group highlight، جستجوی inline chat و حفظ وضعیت در یک پنل. کلیدهای sidebar و detail inline.</p>
+                    <div class="mt-3 pt-2 border-t border-slate-200 dark:border-slate-700">
+                        <p class="text-xs text-slate-400">۴۵ دقیقه</p>
+                    </div>
+                </div>
+
+                <!-- Card 4: Research Report (v1.1) -->
+                <div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50 dark:bg-slate-900 rounded-2xl p-5">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="w-2.5 h-2.5 rounded-full bg-purple-500" title="v1.1">v1.1</span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-purple-50 dark:bg-purple-900 text-purple-700 dark:text-purple-300">تکمیل‌شده</span>
+                        </div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">۲۸-۰۸</div>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">گزارش تحقیقاتی جامع</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">ارائه ۱۴ اسلاید با Reveal.js شامل تحلیل ۲۹ موضوع، ارزش‌سنجی (BCR 1.29)، زمان‌بندی ۳۰ روزه و ریسک‌چیند.</p>
+                    <div class="mt-3 pt-2 border-t border-slate-200 dark:border-slate-700">
+                        <p class="text-xs text-slate-400">۴۵ دقیقه</p>
+                    </div>
+                </div>
+
+                <!-- Card 5: Executive One-Glance (v1.1) -->
+                <div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50 dark:bg-slate-900 rounded-2xl p-5">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="w-2.5 h-2.5 rounded-full bg-orange-500" title="v1.1">v1.1</span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-orange-50 dark:bg-orange-900 text-orange-700 dark:text-orange-300">تکمیل‌شده</span>
+                        </div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">۲۸-۰۸</div>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">داشبورد یک‌نگاه</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">نمای کل‌پروژه با ۲۱۱ چت، ۹۰۰ پیام، ۱۶ گروه و تحلیل روند.</p>
+                    <div class="mt-3 pt-2 border-t border-slate-200 dark:border-slate-700">
+                        <p class="text-xs text-slate-400">۴۵ دقیقه</p>
+                    </div>
+                </div>
+
+                <!-- Card 6: Knowledge Hub (v1.2) -->
+                <div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50 dark:bg-slate-900 rounded-2xl p-5">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="w-2.5 h-2.5 rounded-full bg-green-500" title="v1.2">v1.2</span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-green-50 dark:bg-green-900 text-green-700 dark:text-green-300">تکمیل‌شده</span>
+                        </div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">۲۸-۰۸</div>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Knowledge Hub (جستجوی معنایی)</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">سیستم جستجوی معنایی با pgvector. انبوه‌سازی TF-IDF ۵۱۲-بعدی و لایه RAG.</p>
+                    <div class="mt-3 pt-2 border-t border-slate-200 dark:border-slate-700">
+                        <p class="text-xs text-slate-400">۴۵ دقیقه</p>
+                    </div>
+                </div>
+
+                <!-- Card 7: SIMA vs gapgpt Scope (v1.1) -->
+                <div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50 dark:bg-slate-900 rounded-2xl p-5">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="w-2.5 h-2.5 rounded-full bg-pink-500" title="v1.1">v1.1</span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-pink-50 dark:bg-pink-900 text-pink-700 dark:text-pink-300">تکمیل‌شده</span>
+                        </div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">۲۸-۰۸</div>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">تفکیک دامنه gapgpt و SIMA</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">رابطه دقیق بین پروژه‌های gapgpt (API/DB) و SIMA (LLM) با حفظ مرزهای معماری.</p>
+                    <div class="mt-3 pt-2 border-t border-slate-200 dark:border-slate-700">
+                        <p class="text-xs text-slate-400">۴۵ دقیقه</p>
+                    </div>
+                </div>
+
+                <!-- Card 8: Detailed Report (v1.1) -->
+                <div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50 dark:bg-slate-900 rounded-2xl p-5">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="w-2.5 h-2.5 rounded-full bg-blue-500" title="v1.1">v1.1</span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-300">تکمیل‌شده</span>
+                        </div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">۲۸-۰۸</div>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">گزارش تفصیلی ۲۹ موضوع</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">تحلیل جامع ۲۹ موضوع شامل Foundations، Infrastructure، Outcomes و Roadmap.</p>
+                    <div class="mt-3 pt-2 border-t border-slate-200 dark:border-slate-700">
+                        <p class="text-xs text-slate-400">۴۵ دقیقه</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

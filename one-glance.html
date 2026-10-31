@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نمای یک‌نگاه — gapgpt تحلیل گزارش</title>
+<link rel="stylesheet" href="assets/vazirmatn.css">
+<style>
+  :root {
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --border: #e2e8f0;
+    --text: #0f172a;
+    --muted: #64748b;
+    --primary: #4f46e5;
+    --primary-light: #eef2ff;
+    --success: #16a34a;
+    --success-bg: #dcfce7;
+    --warning: #d97706;
+    --warning-bg: #fef3c7;
+    --danger: #dc2626;
+    --danger-bg: #fee2e2;
+    --radius: 1rem;
+    --shadow: 0 1px 3px rgba(15,23,42,.08), 0 1px 2px rgba(15,23,42,.06);
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Vazirmatn', Tahoma, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 2rem; }
+  h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); margin: 0 0 .5rem; color: var(--text); }
+  .subtitle { color: var(--muted); font-size: 1rem; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    box-shadow: var(--shadow);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(15,23,42,.1); }
+  .card-icon { font-size: 1.5rem; margin-bottom: .5rem; }
+  .stat { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; line-height: 1.1; margin: .25rem 0; }
+  .stat-label { color: var(--muted); font-size: .875rem; }
+  .green { color: var(--success); }
+  .amber { color: var(--warning); }
+  .red { color: var(--danger); }
+  .blue { color: var(--primary); }
+  .sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+  .section-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+  }
+  .section-title {
+    display: flex; align-items: center; gap: .5rem;
+    font-size: 1.125rem; font-weight: 700;
+    color: var(--text);
+    margin: 0 0 1rem;
+    padding-bottom: .75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-title::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--primary); }
+  ul { margin: 0; padding: 0 0 0 1.25rem; list-style: disc; }
+  li { margin: .4rem 0; line-height: 1.6; font-size: .9rem; color: var(--text); }
+  ol { margin: 0; padding: 0 0 0 1.25rem; list-style: decimal; }
+  ol li { margin: .5rem 0; line-height: 1.6; font-size: .9rem; color: var(--text); }
+  .badge { display: inline-flex; align-items: center; gap: .35rem; padding: .2rem .6rem; font-size: .7rem; font-weight: 700; border-radius: 9999px; text-transform: uppercase; letter-spacing: .02em; }
+  .badge-done { background: var(--success-bg); color: var(--success); }
+  .badge-progress { background: var(--warning-bg); color: var(--warning); }
+  .badge-todo { background: var(--danger-bg); color: var(--danger); }
+  .footer { margin-top: 2rem; padding: 1rem; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); text-align: center; font-size: .8rem; color: var(--muted); }
+  .footer a { color: var(--primary); text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+  @media (max-width: 640px) {
+    body { padding: 1rem; }
+    .sections { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>نمای یک‌نگاه</h1>
+    <p class="subtitle">gapgpt Research Report — اکتبر ۲۰۲۶</p>
+  </header>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-icon">💬</div>
+      <div class="stat green">۲۱۱</div>
+      <div class="stat-label">چت کل — ۹۰۰ پیام · ۱۶ گروه</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔥</div>
+      <div class="stat amber">۳ جلسه</div>
+      <div class="stat-label">اوج‌های ماه: ۱، ۱۹، ۲۳ اکتبر</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚠️</div>
+      <div class="stat red">۵۳٪</div>
+      <div class="stat-label">چت‌های دسته‌نیافته (unassigned)</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🚨</div>
+      <div class="stat red">۴</div>
+      <div class="stat-label">ریسک‌های کلیدی فعال</div>
+    </div>
+  </div>
+
+  <div class="sections">
+    <div class="section-card">
+      <h3 class="section-title">نکته‌های کلیدی (Findings)</h3>
+      <ul>
+        <li>Knowledge Hub: pgvector TF-IDF 512-dim + FTS، ورود به هر API</li>
+        <li>داشبورد gapgpt: Kanban + ۱۶ گروه (پورت ۵۰۵۶) — استقرار روی تراست کانادا</li>
+        <li>تایم‌لاین روزانه اکتبر ۲۰۲۶ با اوج‌های فعالیت مشخص</li>
+        <li>مستندات: CHAT، Bcategories، STAR — ۱۶ پرداخت نهایی</li>
+        <li>محدودیت‌ها: FTP اکتیوا، محدودیت SO/DSL شخصی، بک‌آپ چالشی</li>
+      </ul>
+    </div>
+    <div class="section-card">
+      <h3 class="section-title">نقشه راه ۳۰ روزه (Next Steps)</h3>
+      <ol>
+        <li><span class="badge badge-done">DONE</span> چرخاندن خودکار ACCESS_TOKEN (منقضی ۲۰۲۶-۱۱-۰۱)</li>
+        <li><span class="badge badge-progress">PRG</span> حسابرسی پازل شمار سند → مقایسه mimocode.db</li>
+        <li><span class="badge badge-todo">TODO</span> بازدسته‌بندی ۱۱۱ unassigned → هدف <۳۰</li>
+        <li><span class="badge badge-todo">TODO</span> MVP Generative UI: NL → داشبورد → فیلترها</li>
+        <li><span class="badge badge-todo">TODO</span> MVP چت‌بات سازمانی: intent parser → curl API</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="footer">
+    فایل‌های گزارش:
+    <a href="index.html">ارائه Reveal.js</a> ·
+    <a href="detailed-report.md">مفصل Markdown</a> ·
+    <a href="research-report-edit.html">نسخه ویرایش‌پذیر</a> ·
+    <a href="prompt-report.json">داده پرامپت</a> ·
+    <a href="value-assessment.md">ارزیابی ارزش</a> ·
+    <a href="token-costs.json">هزینه توکن</a> ·
+    <a href="time-tracking.md">زمان‌سنجی</a>
+  </div>
+</div>
+</body>
+</html>

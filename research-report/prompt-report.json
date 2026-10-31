@@ -1,0 +1,36 @@
+{
+  "project": "gapgpt",
+  "generated_at": "2026-10-25T23:25:01.906Z",
+  "coverage": {
+    "total_topics": 29,
+    "covered": 29,
+    "equal_priority": true
+  },
+  "summary_data": {
+    "total_chats": 211,
+    "total_messages": 900,
+    "active_days": "20/31 (Oct 2026)",
+    "peak_sessions": ["Oct 11 (3)", "Oct 19 (3)", "Oct 23 (3)"],
+    "subject_groups": 16,
+    "unassigned_ratio": "53% (111 chats)"
+  },
+  "risks": [
+    {"severity": "high", "item": "Token expiry (2026-11-01)", "action": "auto-refresh"},
+    {"severity": "medium", "item": "Disk tight for pgvector", "action": "monitor + migration"},
+    {"severity": "medium", "item": "Auth failures dominate errors", "action": "fix token rotation"},
+    {"severity": "low", "item": "53% chats unclassified", "action": "reclassification campaign"}
+  ],
+  "next_steps": [
+    {"task": "TOKEN-001", "done": false, "status": "TODO"},
+    {"task": "MIG-002", "done": false, "status": "IN_PROGRESS"},
+    {"task": "CAT-003", "done": false, "status": "TODO"},
+    {"task": "UI-004", "done": false, "status": "TODO"},
+    {"task": "BOT-005", "done": false, "status": "TODO"}
+  ],
+  "deliverables": {
+    "html": "reports/research-report.html",
+    "markdown": "reports/detailed-report.md",
+    "json": "reports/prompt-report.json",
+    "prompt": "reports/prompt-report.md"
+  }
+}

@@ -1,0 +1,7 @@
+/* Vazirmatn font-family declared; woff2 files not deployed — falls back to system font */
+@font-face {
+  font-family: 'Vazirmatn';
+  src: local('Vazirmatn'), local('Tahoma'), sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}

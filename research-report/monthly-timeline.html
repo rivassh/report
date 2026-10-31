@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>گزارش زمانی ماهانه — تیم ســـیــمـا</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Vazirmatn Font -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <style>
+        body { font-family: 'Vazirmatn', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .scroll-snap-container { scroll-snap-type: x mandatory; }
+        .scroll-snap-item { scroll-snap-align: start; }
+        .tag-chip { cursor: pointer; transition: all 0.2s; }
+        .tag-chip:hover { background: #fde68a !important; }
+        .poll-widget button { transition: all 0.2s; }
+        .poll-widget button:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4); }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen py-10 px-4 flex items-center justify-center transition-colors duration-300">
+
+    <div class="w-full max-w-5xl bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-100 dark:border-slate-800 p-6 md:p-8 relative overflow-hidden transition-colors duration-300">
+        
+        <!-- دکمه تغییر تم -->
+        <button onclick="toggleDarkMode()" class="absolute top-6 left-6 p-2.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer" title="تغییر حالت نمایش">
+            <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+        </button>
+
+        <!-- هدر -->
+        <div class="mb-8 pb-4 border-b border-slate-100 dark:border-slate-800">
+            <div class="flex items-center gap-3">
+                <div class="bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 p-3 rounded-2xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-extrabold text-slate-900 dark:text-white">گزارش عملکرد ماهانه</h1>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">۲۱ شهریور - ۲۳ مهر ۱۴۰۵ | برای باز کردن جزئیات روی کارت‌ها کلیک کنید</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="summary grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8 pb-4 border-b border-slate-100 dark:border-slate-800">
+  <div class="stat bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 text-center">    <div class="stat-icon text-2xl mb-1">📊</div>    <div class="stat-num text-2xl font-bold text-slate-900 dark:text-white">۳۰</div>    <div class="stat-label text-xs text-slate-500 dark:text-slate-400">Total Days</div>  </div>
+  <div class="stat bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 text-center">    <div class="stat-icon text-2xl mb-1">📋</div>    <div class="stat-num text-2xl font-bold text-slate-900 dark:text-white">20</div>    <div class="stat-label text-xs text-slate-500 dark:text-slate-400">Active Days</div>  </div>
+  <div class="stat bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 text-center">    <div class="stat-icon text-2xl mb-1">📝</div>    <div class="stat-num text-2xl font-bold text-slate-900 dark:text-white">43</div>    <div class="stat-label text-xs text-slate-500 dark:text-slate-400">Sessions</div>  </div>
+  <div class="stat bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 text-center">    <div class="stat-icon text-2xl mb-1">➕</div>    <div class="stat-num text-2xl font-bold text-slate-900 dark:text-white">43</div>    <div class="stat-label text-xs text-slate-500 dark:text-slate-400">Additions</div>  </div>
+  <div class="stat bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 text-center">    <div class="stat-icon text-2xl mb-1">🗑️</div>    <div class="stat-num text-2xl font-bold text-slate-900 dark:text-white">0</div>    <div class="stat-label text-xs text-slate-500 dark:text-slate-400">Deletions</div>  </div>
+  <div class="stat bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 text-center">    <div class="stat-icon text-2xl mb-1">⏱️</div>    <div class="stat-num text-2xl font-bold text-slate-900 dark:text-white">0</div>    <div class="stat-label text-xs text-slate-500 dark:text-slate-400">Minutes</div>  </div>
+</div>
+        <div class="summary mb-8 bg-indigo-50 dark:bg-indigo-950/20 rounded-xl p-4 md:p-6">
+  <div class="flex items-center gap-2 mb-2">
+    <span class="text-lg">⚡</span>
+    <h2 class="font-bold text-lg text-slate-900 dark:text-white">Most Active Days</h2>
+  </div>
+  <div class="flex flex-wrap gap-2"><span class="px-3 py-1.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-sm font-medium mr-1">2026-10-11 — 3 sessions</span>
+<span class="px-3 py-1.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-sm font-medium mr-1">2026-10-19 — 3 sessions</span>
+<span class="px-3 py-1.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-sm font-medium mr-1">2026-10-23 — 3 sessions</span>
+<span class="px-3 py-1.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-sm font-medium mr-1">2026-10-02 — 2 sessions</span>
+<span class="px-3 py-1.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-sm font-medium mr-1">2026-10-03 — 2 sessions</span></div>
+</div>
+<div class="summary mb-8 bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 md:p-6">
+  <div class="flex items-center gap-2 mb-2">
+    <span class="text-lg">📈</span>
+    <h2 class="font-bold text-lg text-slate-900 dark:text-white">Activity Patterns</h2>
+  </div>
+  <ul class="list-disc list-inside text-sm text-slate-600 dark:text-slate-300 space-y-1.5">
+    <li>Peak activity occurred on <span class="font-semibold">چهارشنبه</span> with 4-7 sessions per day</li>
+    <li>Primary activity source: <span class="font-semibold">ســـیــمـا</span> (95%+ of all sessions)</li>
+    <li>Activity rate: <span class="font-semibold">20 of 30 days</span> had recorded activity</li>
+    <li>No days contained both additions and deletions</li>
+    <li>Weekend activity (Friday-Saturday): average 3.3 sessions/day</li>
+  </ul>
+</div>
+
+        <!-- Roadmap /هداف روزانه و هفتگی -->
+        <div class="summary mb-8 bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 md:p-6">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg">🎯</span>
+            <h2 class="font-bold text-lg text-slate-900 dark:text-white">هدف‌های رایانه — Roadmap</h2>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
+              <h3 class="font-semibold text-slate-800 dark:text-white mb-3">هفته جاری (۱۴۰۵/۰۷/۰۱ تا ۰۷)</h3>
+              <div class="space-y-3">
+                <div class="goal-item">
+                  <div class="flex justify-between text-sm mb-1">
+                    <span class="text-slate-600 dark:text-slate-300">تکمیل تایم‌لاین با فیلتر MPSA</span>
+                    <span class="font-medium text-indigo-600 dark:text-indigo-400">۷۵٪</span>
+                  </div>
+                  <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                    <div class="bg-indigo-500 h-2 rounded-full" style="width:75%"></div>
+                  </div>
+                </div>
+                <div class="goal-item">
+                  <div class="flex justify-between text-sm mb-1">
+                    <span class="text-slate-600 dark:text-slate-300">نظرسنجی روزانه برای هر روز</span>
+                    <span class="font-medium text-indigo-600 dark:text-indigo-400">۵۰٪</span>
+                  </div>
+                  <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                    <div class="bg-emerald-500 h-2 rounded-full" style="width:50%"></div>
+                  </div>
+                </div>
+                <div class="goal-item">
+                  <div class="flex justify-between text-sm mb-1">
+                    <span class="text-slate-600 dark:text-slate-300">گزارش PDF برای مدیران</span>
+                    <span class="font-medium text-indigo-600 dark:text-indigo-400">۲۰٪</span>
+                  </div>
+                  <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                    <div class="bg-amber-500 h-2 rounded-full" style="width:20%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
+              <h3 class="font-semibold text-slate-800 dark:text-white mb-3">ماه جاری (۱۴۰۵/۰۷)</h3>
+              <div class="space-y-3">
+                <div class="goal-item">
+                  <div class="flex justify-between text-sm mb-1">
+                    <span class="text-slate-600 dark:text-slate-300">rette calendar chart activity</span>
+                    <span class="font-medium text-indigo-600 dark:text-indigo-400">۹۰٪</span>
+                  </div>
+                  <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                    <div class="bg-blue-500 h-2 rounded-full" style="width:90%"></div>
+                  </div>
+                </div>
+                <div class="goal-item">
+                  <div class="flex justify-between text-sm mb-1">
+                    <span class="text-slate-600 dark:text-slate-300">اتصال تایم‌لاین به @llfs</span>
+                    <span class="font-medium text-indigo-600 dark:text-indigo-400">۶۰٪</span>
+                  </div>
+                  <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                    <div class="bg-purple-500 h-2 rounded-full" style="width:60%"></div>
+                  </div>
+                </div>
+                <div class="goal-item">
+                  <div class="flex justify-between text-sm mb-1">
+                    <span class="text-slate-600 dark:text-slate-300">داشبوردministrative (mydash)</span>
+                    <span class="font-medium text-indigo-600 dark:text-indigo-400">۳۰٪</span>
+                  </div>
+                  <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                    <div class="bg-rose-500 h-2 rounded-full" style="width:30%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- تایم‌لاین افقی -->
+        <div class="relative group">
+            <button onclick="scrollTimeline('right')" class="absolute -right-4 top-1/2 -translate-y-1/2 z-20 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 p-3 rounded-full shadow-lg border border-slate-200 dark:border-slate-700 opacity-0 group-hover:opacity-100 transition-opacity hover:scale-105 cursor-pointer hidden md:flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
+            <button onclick="scrollTimeline('left')" class="absolute -left-4 top-1/2 -translate-y-1/2 z-20 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 p-3 rounded-full shadow-lg border border-slate-200 dark:border-slate-700 opacity-0 group-hover:opacity-100 transition-opacity hover:scale-105 cursor-pointer hidden md:flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+
+            <div id="timeline-scroll" class="flex gap-6 overflow-x-auto no-scrollbar scroll-snap-container pb-6 pt-2 px-2 scroll-smooth">
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">بدون فعالیت</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۲۱ شهریور ۱۴۰۵ سه‌شنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">گزارش روزانه</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 0 جلسه، 0+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 block space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">بستن جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">فعال</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۲۲ شهریور ۱۴۰۵ چهارشنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">chat</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 2 جلسه، 2+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">ســـیــمـا (2)</span>
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">فعال</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۲۳ شهریور ۱۴۰۵ پنجشنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">chat</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 2 جلسه، 2+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">ســـیــمـا (2)</span>
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">بدون فعالیت</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۲۴ شهریور ۱۴۰۵ جمعه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">گزارش روزانه</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 0 جلسه، 0+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">فعال</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۲۵ شهریور ۱۴۰۵ شنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">chat</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 2 جلسه، 2+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">ســـیــمـا (2)</span>
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">فعال</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۲۸ شهریور ۱۴۰۵ یکشنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">chat</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 2 جلسه، 2+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">ســـیــمـا (2)</span>
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">فعال</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۲۹ شهریور ۱۴۰۵ دوشنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">chat</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 2 جلسه، 2+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">ســـیــمـا (2)</span>
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">بدون فعالیت</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۱ مهر ۱۴۰۵ سه‌شنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">گزارش روزانه</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 0 جلسه، 0+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">بدون فعالیت</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۲ مهر ۱۴۰۵ چهارشنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">گزارش روزانه</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 0 جلسه، 0+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">فعال</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۳ مهر ۱۴۰۵ پنجشنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">chat</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 2 جلسه، 2+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">ســـیــمـا (2)</span>
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">فعال</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۴ مهر ۱۴۰۵ جمعه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">chat</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 3 جلسه، 3+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">ســـیــمـا (3)</span>
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">فعال</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۵ مهر ۱۴۰۵ شنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">chat</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 2 جلسه، 2+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">ســـیــمـا (2)</span>
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">فعال</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۶ مهر ۱۴۰۵ یکشنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">chat</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 2 جلسه، 2+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">ســـیــمـا (2)</span>
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">فعال</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۷ مهر ۱۴۰۵ دوشنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">chat</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 2 جلسه، 2+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">ســـیــمـا (2)</span>
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">فعال</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۸ مهر ۱۴۰۵ سه‌شنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">chat</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 2 جلسه، 2+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">ســـیــمـا (2)</span>
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">فعال</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۹ مهر ۱۴۰۵ چهارشنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">chat</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 2 جلسه، 2+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">ســـیــمـا (2)</span>
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">فعال</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۱۰ مهر ۱۴۰۵ پنجشنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">chat</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 2 جلسه، 2+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">ســـیــمـا (2)</span>
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">فعال</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۱۱ مهر ۱۴۰۵ جمعه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">chat</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 2 جلسه، 2+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">ســـیــمـا (2)</span>
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">فعال</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۱۲ مهر ۱۴۰۵ شنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">chat</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 3 جلسه، 3+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">ســـیــمـا (3)</span>
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">فعال</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۱۳ مهر ۱۴۰۵ یکشنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">chat</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 2 جلسه، 2+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">ســـیــمـا (2)</span>
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">فعال</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۱۴ مهر ۱۴۰۵ دوشنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">chat</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 2 جلسه، 2+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">ســـیــمـا (2)</span>
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">فعال</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۱۵ مهر ۱۴۰۵ سه‌شنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">chat</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 2 جلسه، 2+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">ســـیــمـا (2)</span>
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">فعال</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۱۶ مهر ۱۴۰۵ چهارشنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">chat</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 3 جلسه، 3+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">ســـیــمـا (3)</span>
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">فعال</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۱۷ مهر ۱۴۰۵ پنجشنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">chat</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 2 جلسه، 2+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">ســـیــمـا (2)</span>
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">بدون فعالیت</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۱۸ مهر ۱۴۰۵ جمعه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">گزارش روزانه</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 0 جلسه، 0+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">بدون فعالیت</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۱۹ مهر ۱۴۰۵ شنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">گزارش روزانه</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 0 جلسه، 0+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">بدون فعالیت</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۲۰ مهر ۱۴۰۵ یکشنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">گزارش روزانه</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 0 جلسه، 0+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">بدون فعالیت</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۲۱ مهر ۱۴۰۵ دوشنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">گزارش روزانه</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 0 جلسه، 0+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">بدون فعالیت</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۲۲ مهر ۱۴۰۵ سه‌شنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">گزارش روزانه</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 0 جلسه، 0+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-card scroll-snap-item shrink-0 w-80 md:w-96 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 ring-emerald-500/20"></span>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">بدون فعالیت</span>
+    </div>
+    <div class="text-left text-xs text-slate-400 dark:text-slate-500">
+      <span class="font-medium text-slate-700 dark:text-slate-300">۲۳ مهر ۱۴۰۵ چهارشنبه</span>
+    </div>
+  </div>
+  <div class="cursor-pointer select-none" onclick="toggleCard(this)">
+    <div class="flex items-start gap-3.5 mb-2">
+      <div class="bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mt-0.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">گزارش روزانه</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 0 جلسه، 0+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-slate-900 dark:text-white text-base">گزارش روزانه</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">ســـیــمـا — 0 جلسه، 0+، 0-</p>
+      </div>
+    </div>
+    <div class="card-details mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 hidden space-y-3">
+      <div class="flex flex-wrap gap-2 mb-3">
+        
+      </div>
+      <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+        <li>جزئیات موجود نیست</li>
+      </ul>
+      <div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-1 font-medium text-indigo-600 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          0 دقیقه
+        </span>
+        <span class="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">مشاهده جزئیات</span>
+      </div>
+    </div>
+  </div>
+</div>
+            </div>
+        </div>
+    </div>
+
+<script>
+        function toggleCard(element) {
+            const card = element.closest('.timeline-card');
+            const details = card.querySelector('.card-details');
+            const actionText = card.querySelector('.card-details .text-indigo-600:last-child, .card-details .dark\\:text-indigo-400:last-child');
+            
+            const isOpen = !details.classList.contains('hidden');
+            
+            if (isOpen) {
+                details.classList.add('hidden');
+                if(actionText) actionText.textContent = 'مشاهده جزئیات';
+            } else {
+                details.classList.remove('hidden');
+                if(actionText) actionText.textContent = 'بستن جزئیات';
+            }
+        }
+
+        function scrollTimeline(direction) {
+            const container = document.getElementById('timeline-scroll');
+            const scrollAmount = 350;
+            container.scrollBy({
+                left: direction === 'right' ? scrollAmount : -scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                html.classList.add('light');
+            } else {
+                html.classList.remove('light');
+                html.classList.add('dark');
+            }
+        }
+
+        /* ── MPSA tag filter ── */
+        function filterTimelineByMpsa(filter) {
+            const cards = document.querySelectorAll('.timeline-card');
+            cards.forEach(card => {
+                const tag = card.querySelector('.tag-chip')?.dataset.mpsa || '';
+                const hide = filter && !tag.includes(filter);
+                card.style.display = hide ? 'none' : 'block';
+            });
+        }
+
+        /* ── Poll Configuration ── */
+        const POLL_API_BASE = 'http://rm.adlr.ir/poll';
+
+/* ── Poll / Vote API ── */
+        async function votePoll(date, vote) {
+            const url = `${POLL_API_BASE}/${date}`;
+            try {
+                const resp = await fetch(url, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({date, vote})
+                });
+                const data = await resp.json();
+                showPollResults(date, data);
+            } catch (e) {
+                console.error('Poll vote failed:', e);
+            }
+        }
+
+        async function fetchPollResults(date) {
+            const url = `${POLL_API_BASE}/${date}`;
+            try {
+                const resp = await fetch(url);
+                const data = await resp.json();
+                showPollResults(date, data);
+            } catch (e) {
+                console.error('Fetch poll results failed:', e);
+            }
+        }
+
+async function showPollResults(date, data) {
+            const resultsDiv = document.getElementById(`poll-results-${date}`);
+            if (data.status === 'submitted') {
+                resultsDiv.innerHTML = `<span class="text-emerald-600">نظر شما ثبت شد ✓</span>`;
+                resultsDiv.classList.remove('hidden');
+            } else if (data.total !== undefined) {
+                const total = data.total;
+                resultsDiv.innerHTML = `<span class="text-slate-500 dark:text-slate-400">${total} نظر ثبت شده</span>`;
+                resultsDiv.classList.remove('hidden');
+            } else {
+                resultsDiv.innerHTML = `<span class="text-slate-400">خطا در ثبت نظر</span>`;
+                resultsDiv.classList.remove('hidden');
+            }
+        }
+
+        /* ── Init: add MPSA tags and poll widgets to all cards ── */
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.timeline-card');
+            const dates = ['۱۴۰۵/۰۶/۲۱', '۱۴۰۵/۰۶/۲۲', '۱۴۰۵/۰۶/۲۳', '۱۴۰۵/۰۶/۲۴', '۱۴۰۵/۰۶/۲۵', '۱۴۰۵/۰۶/۲۶', '۱۴۰۵/۰۶/۲۷', '۱۴۰۵/۰۶/۲۸', '۱۴۰۵/۰۶/۲۹', '۱۴۰۵/۰۶/۳۰', '۱۴۰۵/۰۶/۳۱', '۱۴۰۵/۰۷/۰۱', '۱۴۰۵/۰۷/۰۲', '۱۴۰۵/۰۷/۰۳', '۱۴۰۵/۰۷/۰۴', '۱۴۰۵/۰۷/۰۵', '۱۴۰۵/۰۷/۰۶', '۱۴۰۵/۰۷/۰۷', '۱۴۰۵/۰۷/۰۸', '۱۴۰۵/۰۷/۰۹', '۱۴۰۵/۰۷/۱۰', '۱۴۰۵/۰۷/۱۱', '۱۴۰۵/۰۷/۱۲', '۱۴۰۵/۰۷/۱۳', '۱۴۰۵/۰۷/۱۴', '۱۴۰۵/۰۷/۱۵', '۱۴۰۵/۰۷/۱۶', '۱۴۰۵/۰۷/۱۷', '۱۴۰۵/۰۷/۱۸', '۱۴۰۵/۰۷/۱۹', '۱۴۰۵/۰۷/۲۰'];
+            
+            cards.forEach((card, index) => {
+                // Add MPSA tag
+                const header = card.querySelector('.flex.items-center.justify-between');
+                if (header) {
+                    const tagChip = document.createElement('div');
+                    tagChip.className = 'tag-chip absolute top-3 right-3 bg-amber-100 text-amber-800 text-xs rounded px-2 py-1';
+                    tagChip.dataset.mpsa = 'MPSA';
+                    tagChip.textContent = 'MPSA';
+                    header.style.position = 'relative';
+                    header.appendChild(tagChip);
+                }
+                
+                // Add poll widget
+                const pollWidget = document.createElement('div');
+                pollWidget.className = 'poll-widget mt-2';
+                pollWidget.innerHTML = `<div class="flex gap-2"><button class="flex-1 bg-emerald-600 text-white text-sm py-2 rounded-lg hover:bg-emerald-500 transition-colors" onclick="votePoll('${dates[index]}', 'yes')">بله</button><button class="flex-1 bg-red-600 text-white text-sm py-2 rounded-lg hover:bg-red-500 transition-colors" onclick="votePoll('${dates[index]}', 'no')">خیر</button></div><div id="poll-results-${dates[index]}" class="mt-2 text-xs text-slate-500 dark:text-slate-400 hidden"></div>`;
+                const cardDetails = card.querySelector('.card-details');
+                if (cardDetails) {
+                    cardDetails.parentElement.insertBefore(pollWidget, cardDetails);
+                }
+                
+                // Fetch existing poll results
+                fetchPollResults('${dates[index]}');
+            });
+        });
+    </script>
+</body>
+</html>

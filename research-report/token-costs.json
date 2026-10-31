@@ -1,0 +1,50 @@
+{
+  "generated_at": "2026-10-25T23:25:01.906001Z",
+  "model_usage": {
+    "A-GAP": {
+      "tokens_free": 100,
+      "cost_per_1k": 0,
+      "monthly_estimate": 0,
+      "notes": "Internal gapgpt model, no external cost"
+    },
+    "OpenRouter": {
+      "current_api": "https://ai.adlr.ir/api/v1",
+      "status": "502_down",
+      "tokens_free_tier": 100,
+      "estimated_cost_per_1k": 1.00,
+      "monthly_estimate_usd": null,
+      "notes": "Proxy in progress; fallback to local TF-IDF"
+    }
+  },
+  "operations_tracked": {
+    "sync_chats": {
+      "avg_calls_per_sync": 5,
+      "chats_per_page": 40,
+      "estimated_tokens_per_sync": 2000,
+      "last_sync_date": "2026-10-25"
+    },
+    "pgvector_migration": {
+      "source_dbs": 4,
+      "tables_migrated": 30,
+      "estimated_tokens": 5000,
+      "last_migration": "in_progress"
+    },
+    "dashboard_api": {
+      "endpoint_calls": 12,
+      "avg_latency_ms": 150,
+      "estimated_tokens_per_call": 100
+    }
+  },
+  "human_time_tracking": {
+    "hours_logged": 4.5,
+    "rate_per_hour_irr": 300000,
+    "total_irr": 1350000,
+    "description": "Research & report generation"
+  },
+  "token_budget": {
+    "free_tier_monthly": 100,
+    "used_this_session": 200,
+    "remaining": -100,
+    "notes": "Over budget; need proxy or paid plan"
+  }
+}
