@@ -154,7 +154,7 @@ def append_today_time_tracking(today_str: str, human_hours: float = 5.0):
         ("sync_chats", "متغیر", "scripts/sync_chats.py", "tokens per sync"),
         ("migrate mimocode", "متغیر", "scripts/migrate_mimocode_to_postgres.py", "۳۰+ جدول"),
         ("API retry loops", "≤۱۲s max", "multiple scripts", "backoff logic"),
-        ("Timeline generation", "متغیر", "generate-monthly-timeline.py", "Oct 2026 snapshot"),
+        ("Timeline generation", "متغیر", "generate-monthly-timeline.py", "مهر ۱۴۰۵ snapshot"),
         ("Audit gate status check", "متغیر", "state/tasks.json, tasks.json", "Suniran/Faragostar/HR verification"),
     ]
 
@@ -223,13 +223,13 @@ def build_data_json(today_str: str) -> dict:
     except:
         pass
     if audit_gates_active and not any("Suniran" in q for q in quarterly):
-        quarterly.append("2026-10-31: Suniran/Faragostar documentation gates pending, HR questionnaires in_progress")
+        quarterly.append("۱۴۰۵/۰۹/۰۹: Suniran/Faragostar documentation gates pending, HR questionnaires in_progress")
     data["sections"]["slide-12-roadmap"]["quarterly"] = quarterly
     
     # ---- Update risk slide (slide-14) with today's token expiry note ----
     risks = data["sections"]["slide-14-risks-value"]["risks"]
     # Add/update token expiry risk with days_left
-    token_deadline = "2026-11-01"
+    token_deadline = "۱۴۰۵/۰۹/۱۰"
     from datetime import datetime, timezone as tz
     exp_date = datetime.strptime(token_deadline, "%Y-%m-%d").replace(tzinfo=tz.utc)
     now = datetime.now(tz.utc)
@@ -240,7 +240,7 @@ def build_data_json(today_str: str) -> dict:
         if 1 not in existing_risk_ids:
             risks.insert(0, {
                 "id": 1,
-                "risk": "Token expiry (2026-11-01)",
+                "risk": "Token expiry (۱۴۰۵/۰۹/۱۰)",
                 "severity": "high" if days_left < 3 else "medium",
                 "action": f"refresh auto ({days_left} days left)",
             })
