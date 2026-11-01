@@ -3,8 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>داشبورد گزارش‌ها — gapgpt</title>
-  <link rel="stylesheet" href="assets/vazirmatn.css">
+  <title>داشبورد گزارش‌ها — ســـیــمـا</title>
+  <link rel="icon" type="image/png" href="../assets/sima-favicon-64.png" sizes="64x64">
+  <link rel="icon" type="image/png" href="../assets/sima-favicon-32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="../assets/sima-favicon-16.png" sizes="16x16">
+  <link rel="apple-touch-icon" href="../assets/sima-favicon-64.png">
+  <link rel="stylesheet" href="../assets/vazirmatn.css">
+  <link rel="stylesheet" href="../assets/sima-fonts.css">
   <style>
     :root {
       --bg: #f8fafc;
@@ -35,57 +40,74 @@
       padding: 1rem;
     }
 
-    .container { max-width: 1200px; margin: 0 auto; }
-    header { text-align: center; margin-bottom: 2rem; }
-    h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); margin: 0 0 .5rem; color: var(--text); }
-    .subtitle { color: var(--muted); font-size: 1rem; }
+    .container { max-width: 100%; margin: 0 auto; padding: 0 1rem; }
+    header { text-align: center; margin-bottom: 1.5rem; }
+    h1 { font-size: clamp(1.5rem, 5vw, 2rem); margin: 0 0 .5rem; color: var(--text); }
+    .subtitle { color: var(--muted); font-size: .875rem; }
 
     .report-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 2rem;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (min-width: 480px) {
+      .report-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (min-width: 768px) {
+      .report-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
     }
 
     .report-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 1.5rem;
+      padding: 1rem;
       box-shadow: var(--shadow);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    .report-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(15,23,42,.15);
     }
 
     .report-header {
       display: flex;
       justify-content: space-between;
       align-items: start;
-      margin-bottom: 1rem;
+      margin-bottom: .75rem;
+      flex-wrap: wrap;
+      gap: .5rem;
     }
 
     .report-id {
       font-family: monospace;
-      font-size: 0.875rem;
+      font-size: .75rem;
       color: var(--primary);
       background: var(--primary-light);
-      padding: 0.25rem 0.5rem;
-      border-radius: 0.5rem;
+      padding: .15rem .35rem;
+      border-radius: .35rem;
     }
 
     .report-timestamp {
-      font-size: 0.75rem;
+      font-size: .65rem;
       color: var(--muted);
     }
 
     .report-content {
       background: #f8fafc;
-      border-radius: 0.5rem;
-      padding: 1rem;
+      border-radius: .4rem;
+      padding: .75rem;
       overflow-x: auto;
+      font-size: .65rem;
     }
 
     .report-json {
       font-family: monospace;
-      font-size: 0.75rem;
+      font-size: .6rem;
       margin: 0;
       white-space: pre;
     }
@@ -93,29 +115,29 @@
     .no-reports {
       text-align: center;
       color: var(--muted);
-      padding: 3rem;
-      font-size: 1.125rem;
+      padding: 2rem 1rem;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 480px) {
+      .report-json { font-size: .5rem; }
+      .report-card { padding: .75rem; }
     }
 
     .nav-bar { display: flex; gap: .5rem; margin-bottom: .5rem; justify-content: center; }
     .nav-btn {
       display: inline-block;
-      padding: .5rem 1rem;
+      padding: .4rem .8rem;
       background: var(--primary);
       color: white;
       text-decoration: none;
       border-radius: var(--radius);
-      font-size: .875rem;
+      font-size: .75rem;
       font-weight: 600;
       transition: background .15s;
-      min-width: 140px;
+      min-width: 110px;
     }
     .nav-btn:hover { background: var(--primary-dark); }
-
-    @media (max-width: 640px) {
-      body { padding: 1rem; }
-      .report-grid { grid-template-columns: 1fr; }
-    }
   </style>
 </head>
 <body>
@@ -127,7 +149,11 @@
     </nav>
 
     <header>
-      <h1>📊 داشبورد گزارش‌ها و لاگ‌ها</h1>
+      <div class="sima-brand">
+        <img src="../assets/sima-logo.svg" alt="سیما" width="32" height="32" style="vertical-align: middle; margin-right: 0.5rem;">
+        <span class="sima-logo-text">ســـیــمـا</span>
+      </div>
+      <h1 style="margin-top: 0.5rem;">داشبورد گزارش‌ها و لاگ‌ها</h1>
       <p class="subtitle">گزارش‌ها و لاگ‌های دریافتی در realtime</p>
     </header>
 
