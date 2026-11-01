@@ -1,0 +1,38 @@
+/* Sima — Yekan font for sima webapp branding */
+@font-face {
+  font-family: 'Yekan';
+  src: local('IranYekan'), local('Yekan'), local('IranYekan-Regular'), local('Yekan-Regular'),
+       url('/assets/fonts/yekan/Yekan-Regular.woff2') format('woff2'),
+       url('/assets/fonts/yekan/Yekan-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Yekan';
+  src: local('IranYekan-Bold'), local('Yekan-Bold'),
+       url('/assets/fonts/yekan/Yekan-Bold.woff2') format('woff2'),
+       url('/assets/fonts/yekan/Yekan-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+.sima-title {
+  font-family: 'Yekan', 'Vazirmatn', Tahoma, sans-serif;
+  font-weight: 700;
+  text-align: center;
+  text-align-last: right;
+}
+
+.sima-brand {
+  font-family: 'Yekan', 'Vazirmatn', Tahoma, sans-serif;
+  font-weight: 700;
+  direction: rtl;
+}
+
+.sima-logo-text {
+  font-family: 'Yekan', 'Vazirmatn', Tahoma, sans-serif;
+  font-weight: 900;
+  font-size: 2rem;
+  letter-spacing: -0.05em;
+}
