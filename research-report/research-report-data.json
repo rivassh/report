@@ -156,7 +156,8 @@
       "daily": [
         "mimocode-migrate — SQLite → PostgreSQL",
         "بازرسی انقضای توکن (۲۰۲۶-۱۱-۰۱)",
-        "این روزانه ۸ ساعت حضور — ۴ ساعت قطار/رو?_5 ساعت کار موثر"
+        "این روزانه ۸ ساعت حضور — ۴ ساعت قطار/رو?_5 ساعت کار موثر",
+        "2026-11-01: no multiagent tasks today"
       ],
       "weekly": [
         "متریک‌های داشبورد",
@@ -172,8 +173,9 @@
       "quarterly": [
         "Generative UI MVP",
         "چتبات سازمانی MVP",
-        "GitOps سخت‌افزاری",
-        "اینQuarterist یکشمارم yaklaşık ۳۰۰ ساعت کار هدفمند"
+        "GitOps سخت‌افراری",
+        "اینQuarterist یکشمارم yaklaşیک ۳۰۰ ساعت کار هدفمند",
+        "2026-10-31: Suniran/Faragostar documentation gates pending, HR questionnaires in_progress, Q-02 blocked"
       ]
     },
     "slide-13-environment": {

@@ -1,0 +1,153 @@
+{
+  "project": "gapgpt",
+  "version": "2.1.0",
+  "recalibrated_at": "2026-10-31T00:00:00Z",
+  "token_expiry_deadline": "2026-11-01",
+  "audit_gates": [
+    {
+      "name": "Suniran",
+      "entity": "سانیران",
+      "type": "internal_system",
+      "status": "needs_clarification",
+      "gate": "Documentation and ownership confirmation required before task progression.",
+      "verification": [
+        "Confirm internal documentation for Suniran system",
+        "Assign named owner for Suniran maintenance",
+        "Record Suniran in SSOT task register"
+      ],
+      "blocks": ["all downstream tasks referencing Suniran"]
+    },
+    {
+      "name": "Faragostar",
+      "entity": "فراگستر",
+      "type": "internal_system",
+      "status": "needs_clarification",
+      "gate": "Documentation and ownership confirmation required before task progression.",
+      "verification": [
+        "Confirm internal documentation for Faragostar system",
+        "Assign named owner for Faragostar maintenance",
+        "Record Faragostar in SSOT task register"
+      ],
+      "blocks": ["all downstream tasks referencing Faragostar"]
+    },
+    {
+      "name": "HR",
+      "entity": "پرسش館 منابع انسانی",
+      "type": "questionnaire_system",
+      "status": "in_progress",
+      "gate": "HR questionnaire integration review and cost validation required.",
+      "verification": [
+        "Verify HR questionnaire data model",
+        "Validate human vs machine time cost assumptions (4.5h human, ~1.5M IRR)",
+        "Confirm HR module is registered in task register"
+      ],
+      "blocks": ["HR questionnaire rollout", "HR cost reporting"]
+    }
+  ],
+  "tasks": {
+    "daily": [
+      {
+        "id": "D-01",
+        "task": "mimocode-migrate — SQLite → PostgreSQL",
+        "status": "in_progress",
+        "audit_gate": null
+      },
+      {
+        "id": "D-02",
+        "task": "بازرسی انقضای توکن (۲۰۲۶-۱۱-۰۱)",
+        "status": "pending",
+        "audit_gate": null
+      },
+      {
+        "id": "D-03",
+        "task": "۸ ساعت حضور — ۴ ساعت قطار/رو ، ۵ ساعت کار موثر",
+        "status": "pending",
+        "audit_gate": null
+      }
+    ],
+    "weekly": [
+      {
+        "id": "W-01",
+        "task": "متریک‌های داشبورد",
+        "status": "pending",
+        "audit_gate": null
+      },
+      {
+        "id": "W-02",
+        "task": "بازدسته‌بندی چت‌ها (unassigned ۱۱۱ → <۳۰)",
+        "status": "pending",
+        "audit_gate": null
+      },
+      {
+        "id": "W-03",
+        "task": "بررسی iler پیشرفت ۵ ساعتی روزانه",
+        "status": "pending",
+        "audit_gate": null
+      }
+    ],
+    "monthly": [
+      {
+        "id": "M-01",
+        "task": "باز تحلیل تایم‌لاین",
+        "status": "pending",
+        "audit_gate": null
+      },
+      {
+        "id": "M-02",
+        "task": "PostgreSQL VACUUM",
+        "status": "pending",
+        "audit_gate": null
+      },
+      {
+        "id": "M-03",
+        "task": "روتاسیون توکن",
+        "status": "pending",
+        "audit_gate": null
+      },
+      {
+        "id": "M-04",
+        "task": "جمع‌بندی ۵ ساعتی × ۲۰ روز کاری = ۱۰۰ ساعت ماهانه",
+        "status": "pending",
+        "audit_gate": "HR"
+      }
+    ],
+    "quarterly": [
+      {
+        "id": "Q-01",
+        "task": "Generative UI MVP",
+        "status": "pending",
+        "audit_gate": null
+      },
+      {
+        "id": "Q-02",
+        "task": "چتبات سازمانی MVP",
+        "status": "pending",
+        "audit_gate": "HR"
+      },
+      {
+        "id": "Q-03",
+        "task": "GitOps سخت‌افزاری",
+        "status": "pending",
+        "audit_gate": null
+      },
+      {
+        "id": "Q-04",
+        "task": "นี้ربع تقریباً ۳۰۰ ساعت کار هدفمند",
+        "status": "pending",
+        "audit_gate": null
+      },
+      {
+        "id": "Q-05",
+        "task": "Suniran documentation and ownership",
+        "status": "pending",
+        "audit_gate": "Suniran"
+      },
+      {
+        "id": "Q-06",
+        "task": "Faragostar documentation and ownership",
+        "status": "pending",
+        "audit_gate": "Faragostar"
+      }
+    ]
+  }
+}
