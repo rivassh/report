@@ -1,0 +1,8 @@
+{
+  "id": "report-test-001",
+  "title": "Sample Report",
+  "message": "Test report received",
+  "level": "info",
+  "source": "api-test",
+  "timestamp": "2026-11-01T00:00:00Z"
+}

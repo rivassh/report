@@ -1,0 +1,64 @@
+name: Receive Report Webhook
+
+on:
+  repository_dispatch:
+    types: [report-received]
+  workflow_dispatch:
+    inputs:
+      report_json:
+        description: 'JSON report data'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  process-report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Get report data
+        id: report
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "report_data=${{ github.event.inputs.report_json }}" >> $GITHUB_OUTPUT
+          else
+            echo "report_data=${{ toJson(github.event.client_payload) }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create report file
+        run: |
+          TIMESTAMP=$(date -u +"%Y%m%d-%H%M%S")
+          REPORT_ID="report-${TIMESTAMP}"
+          
+          # Parse the JSON to check for custom ID
+          CUSTOM_ID=$(echo '${{ steps.report.outputs.report_data }}' | jq -r '.id // empty')
+          if [ -n "$CUSTOM_ID" ]; then
+            REPORT_ID="$CUSTOM_ID"
+          fi
+          
+          # Create the report file
+          echo '${{ steps.report.outputs.report_data }}' | jq '.' > "logs/${REPORT_ID}.json"
+          
+          # Also append to markdown log
+          LOG_ENTRY="## $(date -u -Iseconds)\n\`\`\`json\n$(echo '${{ steps.report.outputs.report_data }}' | jq '.')\n\`\`\`\n\n"
+          echo -e "$LOG_ENTRY" >> "logs/all-reports.md"
+          
+          echo "REPORT_ID=$REPORT_ID" >> $GITHUB_OUTPUT
+
+      - name: Commit and push reports
+        run: |
+          git add logs/
+          git commit -m "chore(reports): add ${REPORT_ID} [skip ci]" || echo "No changes to commit"
+          git push origin main

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>داشبورد گزارش‌ها — gapgpt</title>
+  <link rel="stylesheet" href="assets/vazirmatn.css">
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --muted: #64748b;
+      --primary: #4f46e5;
+      --primary-dark: #4338ca;
+      --primary-light: #eef2ff;
+      --success: #16a34a;
+      --success-bg: #dcfce7;
+      --warning: #d97706;
+      --warning-bg: #fef3c7;
+      --danger: #dc2626;
+      --danger-bg: #fee2e2;
+      --radius: 1rem;
+      --shadow: 0 1px 3px rgba(15,23,42,.08), 0 1px 2px rgba(15,23,42,.06);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Vazirmatn', Tahoma, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 2rem; }
+    h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); margin: 0 0 .5rem; color: var(--text); }
+    .subtitle { color: var(--muted); font-size: 1rem; }
+
+    .report-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .report-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .report-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 1rem;
+    }
+
+    .report-id {
+      font-family: monospace;
+      font-size: 0.875rem;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.5rem;
+    }
+
+    .report-timestamp {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .report-content {
+      background: #f8fafc;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      overflow-x: auto;
+    }
+
+    .report-json {
+      font-family: monospace;
+      font-size: 0.75rem;
+      margin: 0;
+      white-space: pre;
+    }
+
+    .no-reports {
+      text-align: center;
+      color: var(--muted);
+      padding: 3rem;
+      font-size: 1.125rem;
+    }
+
+    .nav-bar { display: flex; gap: .5rem; margin-bottom: .5rem; justify-content: center; }
+    .nav-btn {
+      display: inline-block;
+      padding: .5rem 1rem;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: var(--radius);
+      font-size: .875rem;
+      font-weight: 600;
+      transition: background .15s;
+      min-width: 140px;
+    }
+    .nav-btn:hover { background: var(--primary-dark); }
+
+    @media (max-width: 640px) {
+      body { padding: 1rem; }
+      .report-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav-bar">
+      <a href="/" class="nav-btn">🏠 صفحه اصلی</a>
+      <a href="reports/index.html" class="nav-btn">📊 داشبورد گزارش‌ها</a>
+      <a href="research-report/" class="nav-btn">📈 گزارش تحقیقاتی</a>
+    </nav>
+
+    <header>
+      <h1>📊 داشبورد گزارش‌ها و لاگ‌ها</h1>
+      <p class="subtitle">گزارش‌ها و لاگ‌های دریافتی در realtime</p>
+    </header>
+
+    <div id="reports-container">
+      <div class="no-reports">در حال بارگذاری گزارش‌ها...</div>
+    </div>
+  </div>
+
+  <script>
+    async function loadReports() {
+      try {
+        const response = await fetch('logs/all-reports.md');
+        if (!response.ok) throw new Error('Failed to fetch reports');
+
+        const markdown = await response.text();
+        const container = document.getElementById('reports-container');
+
+        if (!markdown.trim() || markdown.includes('در حال بارگذاری')) {
+          container.innerHTML = '<div class="no-reports">هنوز هیچ گزارشی دریافت نشده است.</div>';
+          return;
+        }
+
+        const sections = markdown.split(/^## /m);
+        const reports = [];
+
+        for (let i = 1; i < sections.length; i++) {
+          const section = sections[i];
+          const lines = section.split('\n');
+          const timestampLine = lines[0];
+          const codeBlock = lines.slice(1).join('\n');
+
+          const timestamp = timestampLine;
+
+          let jsonStr = '';
+          if (codeBlock.includes('```json')) {
+            const jsonPart = codeBlock.split('```json')[1].split('```')[0];
+            jsonStr = jsonPart.trim();
+          }
+
+          try {
+            const jsonData = JSON.parse(jsonStr);
+            reports.push({
+              timestamp,
+              data: jsonData
+            });
+          } catch (e) {
+            console.error('Failed to parse report JSON:', e);
+          }
+        }
+
+        if (reports.length === 0) {
+          container.innerHTML = '<div class="no-reports">فرمت گزارش‌ها نامعتبر است.</div>';
+          return;
+        }
+
+        container.innerHTML = `
+          <div class="report-grid">
+            ${reports.map(report => `
+              <div class="report-card">
+                <div class="report-header">
+                  <div class="report-id">${report.data.id || 'نامشخص'}</div>
+                  <div class="report-timestamp">${report.timestamp}</div>
+                </div>
+                <div class="report-content">
+                  <pre class="report-json">${JSON.stringify(report.data, null, 2)}</pre>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      } catch (error) {
+        console.error('Error loading reports:', error);
+        document.getElementById('reports-container').innerHTML =
+          '<div class="no-reports">خطا در بارگذاری گزارش‌ها. لطفاً بعداً دوباره تلاش کنید.</div>';
+      }
+    }
+
+    loadReports();
+    setInterval(loadReports, 30000);
+  </script>
+</body>
+</html>
