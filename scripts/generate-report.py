@@ -229,7 +229,8 @@ def build_data_json(today_str: str) -> dict:
     # ---- Update risk slide (slide-14) with today's token expiry note ----
     risks = data["sections"]["slide-14-risks-value"]["risks"]
     # Add/update token expiry risk with days_left
-    token_deadline = "۱۴۰۵/۰۹/۱۰"
+    # Use fixed Gregorian deadline for proper date parsing (2026-11-01)
+    token_deadline = "2026-11-01"
     from datetime import datetime, timezone as tz
     exp_date = datetime.strptime(token_deadline, "%Y-%m-%d").replace(tzinfo=tz.utc)
     now = datetime.now(tz.utc)
@@ -240,7 +241,7 @@ def build_data_json(today_str: str) -> dict:
         if 1 not in existing_risk_ids:
             risks.insert(0, {
                 "id": 1,
-                "risk": "Token expiry (۱۴۰۵/۰۹/۱۰)",
+                "risk": "Token expiry (۲۰۲۶-۱۱-۰۱)",
                 "severity": "high" if days_left < 3 else "medium",
                 "action": f"refresh auto ({days_left} days left)",
             })
