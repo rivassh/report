@@ -2,410 +2,134 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نقشه راه ســـیــمـا</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="نقشه‌راه اجرایی SIMA از نمونه‌ی آزمایشی تا پایلوت قابل اتکا">
+    <title>نقشه‌راه SIMA</title>
     <style>
-        body { font-family: 'Vazirmatn', sans-serif; }
-        .nav-link { position: relative; }
-        .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: #3b82f6; transition: width 0.3s; }
-        .nav-link:hover::after { width: 100%; }
-        .progress-bar { height: 8px; background: #cbd5e1; border-radius: 4px; margin-top: 1rem; overflow: hidden; }
-        .progress-fill { height: 100%; background: #3b82f6; width: 0%; transition: width 1s ease-in-out; }
-        .day-cell { padding: 0.5rem; border-radius: 0.5rem; font-size: 0.85rem; text-align: center; min-width: 120px; flex-shrink: 0; }
-        .day-active { background: #e2e8f0; color: #0f172a; }
-        .day-future { color: #94a3b8; }
-        .week-grid { display: grid; gap: 0.5rem; grid-template-columns: repeat(5, 1fr); overflow-x: auto; -webkit-overflow-scrolling: touch; }
-        .week-grid::-webkit-scrollbar { height: 6px; }
-        .week-grid::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 3px; }
-        .week-grid::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-        .week-grid::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        .phase-card { border: 1px solid #e2e8f0; border-radius: 1rem; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
-        .phase-card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
-        .status-badge { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.2rem 0.6rem; font-size: 0.7rem; font-weight: 700; border-radius: 9999px; }
-        .status-done { background: #dcfce7; color: #166534; }
-        .status-active { background: #dbeafe; color: #1e40af; }
-        .status-planned { background: #fef3c7; color: #92400e; }
-        .metric-value { font-size: 2.5rem; font-weight: 800; line-height: 1.1; }
-        .timeline-connector { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: #cbd5e1; transform: translateX(-50%); z-index: 0; }
-        .milestone-dot { position: relative; z-index: 1; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; }
+        :root {
+            color-scheme: light;
+            --ink: #172033;
+            --muted: #526078;
+            --line: #d9e1ec;
+            --surface: #fff;
+            --canvas: #f3f6fb;
+            --blue: #1d4ed8;
+            --teal: #0f766e;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--canvas);
+            color: var(--ink);
+            font: 16px/1.8 system-ui, -apple-system, "Segoe UI", sans-serif;
+        }
+        a { color: var(--blue); }
+        .wrap { width: min(1050px, calc(100% - 32px)); margin: 0 auto; }
+        header { padding: 48px 0 28px; }
+        h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.3; }
+        h2 { margin: 0 0 12px; font-size: 1.35rem; }
+        p { margin: 8px 0; }
+        .eyebrow { color: var(--teal); font-weight: 700; }
+        .muted { color: var(--muted); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+        .card {
+            padding: 20px;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+        }
+        .metric { font-size: 2rem; font-weight: 800; color: var(--blue); }
+        .phase { margin: 14px 0; }
+        .phase strong { display: block; }
+        .hours { color: var(--muted); white-space: nowrap; }
+        .callout { border-right: 4px solid var(--teal); }
+        .links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+        .button {
+            display: inline-block;
+            padding: 9px 16px;
+            border-radius: 9px;
+            background: var(--blue);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+        }
+        .button.secondary { background: #e7eefb; color: var(--blue); }
+        footer { padding: 28px 0 44px; color: var(--muted); font-size: .9rem; }
+        @media (max-width: 600px) {
+            header { padding-top: 30px; }
+            .card { padding: 16px; }
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 min-h-screen">
-
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/50">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center">
-                    <span class="text-white text-xs font-bold">سیما</span>
-                </div>
-                    نقشه راه ســـیــمـا
-            </div>
-            <div class="hidden md:flex items-center gap-6">
-                <a href="research-report.html" class="nav-link text-slate-600 hover:text-slate-900 transition-colors text-sm font-medium">ارائهٔ اسلایدی</a>
-                <a href="one-glance.html" class="nav-link text-slate-600 hover:text-slate-900 transition-colors text-sm font-medium">یک‌نگاه</a>
-                <a href="research-report-edit.html" class="nav-link text-slate-600 hover:text-slate-900 transition-colors text-sm font-medium">ویرایش‌پذیر</a>
-                <a href="detailed-report.md" class="nav-link text-slate-600 hover:text-slate-900 transition-colors text-sm font-medium">گزارش مفصل</a>
-            </div>
-        </div>
-    </nav>
-
-    <div class="max-w-7xl mx-auto px-6 py-20 text-center">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold mb-4 uppercase tracking-wider">
-            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-            پروژه فعال — ۹آبان تا ۷آذر
-        </div>
-            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight text-slate-900">نقشه راه ســـیــمـا</h1>
-        <p class="text-lg text-slate-600 max-w-2xl mx-auto mb-8">
-            (سیستم یکپارچه مدیریت اطلاعات)
-        </p>
-        <div class="flex flex-wrap justify-center gap-4 text-sm text-slate-500">
-            <span class="flex items-center gap-2">📊 <span class="font-medium">نرخ تکمیل: ۴۲٪</span></span>
-            <span class="flex items-center gap-2">⏱ <span class="font-bold text-slate-700">انقضای توکن:</span> ۲۰۲۶-۱۱-۰۱</span>
-            <span class="flex items-center gap-2">🔗 <span class="font-medium">سرور استقرار:</span> rm.adlr.ir</span>
-        </div>
+<body>
+<header class="wrap">
+    <p class="eyebrow">نقشه‌راه اجرایی · بازبینی مبنا: ۲ نوامبر ۲۰۲۶</p>
+    <h1>ســـیــمـا: از نمونه‌ی آزمایشی تا پایلوت قابل اتکا</h1>
+    <p class="muted">برنامه‌ی توسعه بر پایه‌ی شواهد کد و اسناد فعلی SIMA؛ بدون تاریخ‌های تقویمی یا درصد پیشرفت تأییدنشده.</p>
+    <div class="links">
+        <a class="button" href="sima-roadmap.md">مشاهده‌ی نقشه‌ی کامل و ۹۲ تسک</a>
+        <a class="button secondary" href="https://github.com/rivassh/multiagent">مخزن آزمایشی SIMA</a>
     </div>
+</header>
 
-    <div class="max-w-7xl mx-auto px-6 py-12">
-        <div class="space-y-8">
+<main class="wrap">
+    <section class="grid" aria-label="خلاصه نقشه راه">
+        <article class="card">
+            <div class="metric">۹۲</div>
+            <strong>واحد کاری کوچک</strong>
+            <p class="muted">تخمین هر task حداکثر ۲ ساعت است؛ کار بزرگ‌تر پیش از اجرا شکسته می‌شود.</p>
+        </article>
+        <article class="card">
+            <div class="metric">۱۴۳٫۵</div>
+            <strong>ساعت مهندسی اولیه</strong>
+            <p class="muted">تخمین بازبینی‌پذیر پس از baseline؛ انتظار دسترسی‌های بیرونی در آن نیست.</p>
+        </article>
+        <article class="card">
+            <div class="metric">۸</div>
+            <strong>فاز تا پایلوت داخلی</strong>
+            <p class="muted">هر فاز gate خروج و معیار پذیرش دارد؛ این عدد برنامه‌ی تقویمی یا تعهد انتشار نیست.</p>
+        </article>
+    </section>
 
-            <!-- Foundation: Completed Work -->
-            <div class="phase-card border-emerald-200">
-                <div class="bg-emerald-600 px-6 py-4 flex justify-between items-center">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-white text-lg font-bold">۰</div>
-                        <div>
-                            <h2 class="text-xl font-bold text-white">کارهای پیشین تکمیل‌شده (پایه و زیرساخت)</h2>
-                            <p class="text-emerald-100 text-sm">پیش از شروع نقشه راه ۴هفته‌ای</p>
-                        </div>
-                    </div>
-                    <span class="status-badge status-done">تکمیل شده</span>
-                </div>
-                <div class="p-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <div class="day-cell day-active">
-                            <strong>🔍 تحلیل تحقیقاتی جامع</strong><br>
-                            <span class="text-xs">۲۹ موضوع با اولویت برابر · گزارش مفصل + اسلاید Reveal.js</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>📊 داشبورد BI و Metabase</strong><br>
-                            <span class="text-xs">PostgreSQL 16 + pgvector · ۲۱۱ چت · ۹۰۰ پیام · ۱۶ گروه موضوعی</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>🔗 Knowledge Hub</strong><br>
-                            <span class="text-xs">pgvector TF-IDF ۵۱۲-bad + FTS · جستجوی معنایی چت‌ها</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>⚙️ زیرساخت سنکرین‌سازی</strong><br>
-                            <span class="text-xs">scripts/sync_chats.py · اتصال به gapgpt.app API · WebSocket v98</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>📅 تایم‌لاین ماهانه</strong><br>
-                            <span class="text-xs">مهر ۱۴۰۵ · اوج فعالیت: ۱۱، ۱۹، ۲۳ · ۲۰ روز فعال از ۳۱ روز</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>📋 مستندات سازمانی</strong><br>
-                            <span class="text-xs">CONSTITUTION.md · ۵ قانون گزارش‌دهی · تمایز SIMA vs gapgpt</span>
-                        </div>
-                    </div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
-                    <p class="text-xs text-emerald-700 mt-2">تمامی مراحل پایه و زیرساختی تکمیل شده — آماده‌سازی نقشه راه اجرایی ۴ هفتهای.<div class="phase-card border-blue-200">
-                <div class="bg-blue-600 px-6 py-4 flex justify-between items-center">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white text-lg font-bold">⚡</div>
-                        <div>
-                            <h2 class="text-xl font-bold text-white">امروز ۱۴۰۵/۰۹/۱۰: پیشرفت روزانه</h2>
-                            <p class="text-blue-100 text-sm">۵ ساعت انسانی · تسلط TASK-079/080/081 · TASK-082/083/085 در اجرا · Audit Gates در انتظار</p>
-                        </div>
-                    </div>
-                    <a href="time-tracking.md" target="_blank" class="text-xs text-blue-200 hover:text-blue-400 underline">⏱ زمان‌سنجی</a>
-                    <span class="status-badge status-active">در حال انجام</span>
-                </div>
-                <div class="p-6">
-                    <div class="week-grid mb-4">
-                        <div class="day-cell day-active">
-                            <strong>TASK-079 ✓</strong><br>
-                            <span class="text-xs">LLM Monologue Leak Fix (ChatQueryService)</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>TASK-080 ✓</strong><br>
-                            <span class="text-xs">CandidatesTool Decoupling (JobProfileRegistry)</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>TASK-081 ✓</strong><br>
-                            <span class="text-xs">CTO OTP Force + Bypass Fix (EnsureOtpAuthenticated)</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>TASK-082 ~</strong><br>
-                            <span class="text-xs">Auth Hardening (ApiKeyValidation, SessionGuard)</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>Audit Gates ⚠</strong><br>
-                            <span class="text-xs">Suniran/Faragostar docs + HR questionnaires</span>
-                        </div>
-                    </div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div>
-                    <p class="text-xs text-blue-100 mt-2">امروز: ۳ تسک تکمیل، ۳ تسک در اجرا، ۳ Audit Gate باز. Token expiry: ۱۴۰۵/۰۸/۱۰ (فردا).</p>
-                </div>
-            </div></p>
-                </div>
-            </div>
+    <section class="card callout" style="margin-top:16px">
+        <h2>تعریف پایان این مسیر</h2>
+        <p>پایلوت داخلی استخدام که آگهی و کارجو را با منبع روشن ثبت می‌کند، غربالگری شواهدمحور و بازبینی انسانی دارد، shortlist می‌سازد، چت AI قابل ردیابی ارائه می‌دهد و در staging با آزمون، مجوز، backup/restore و runbook قابل اجراست.</p>
+        <p><strong>این نقشه‌راه وعده‌ی ERP کامل یا محصول تجاری چندمستاجری نیست.</strong> مالک محصول باید دامنه‌ی پایلوت، داده‌های مجاز، KPI و قابلیت‌های HR را در فاز صفر تأیید کند.</p>
+    </section>
 
-            <!-- Phase 1: Completed Foundation -->
-            <div class="phase-card border-emerald-200">
-                <div class="bg-emerald-600 px-6 py-4 flex justify-between items-center">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-white text-lg font-bold">۰</div>
-                        <div>
-                            <h2 class="text-xl font-bold text-white">هفته پیشین: پایه‌سازی (تکمیل ۱۰۰٪)</h2>
-                            <p class="text-emerald-100 text-sm">تحلیل جامع + دیتابیس + Knowledge Hub + sync infrastructure</p>
-                        </div>
-                    </div>
-                    <span class="status-badge status-done">تکمیل شده</span>
-                </div>
-                <div class="p-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
-                        <div class="day-cell day-active">
-                            <strong>🔍 تحلیل ۲۹ موضوع</strong><br>
-                            <span class="text-xs">گزارش مفصل + اسلاید Reveal.js</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>📊 دیتابیس BI</strong><br>
-                            <span class="text-xs">PostgreSQL 16+pgvector: ۲۱۱ چت · ۹۰۰ پیام · ۱۶ گروه</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>🧠 Knowledge Hub</strong><br>
-                            <span class="text-xs">pgvector TF-IDF ۵۱۲بَد + جستجوی معنایی</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>⚙️ sync_zir</strong><br>
-                            <span class="text-xs">sync_chats.py + WebSocket v98</span>
-                        </div>
-                    </div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
-                </div>
-            </div>
+    <section class="card" style="margin-top:16px">
+        <h2>ترتیب فازها و خروجی هر gate</h2>
+        <div class="phase"><strong>۰ · دامنه و خط مبنا <span class="hours">۱۲٫۵ ساعت</span></strong><span class="muted">scope تأییدشده، inventory شواهد، baseline تست و راه‌اندازی تمیز.</span></div>
+        <div class="phase"><strong>۱ · پایه‌ی قابل آزمون و امن <span class="hours">۲۲٫۵ ساعت</span></strong><span class="muted">CI، قرارداد API، مجوز، اعتبارسنجی، خطا و migration قابل اعتماد.</span></div>
+        <div class="phase"><strong>۲ · چرخه‌ی استخدام <span class="hours">۲۱٫۵ ساعت</span></strong><span class="muted">آگهی، ورود پروفایل، غربالگری شواهدمحور، تصمیم انسانی و shortlist.</span></div>
+        <div class="phase"><strong>۳ · چت و AI قابل ردیابی <span class="hours">۲۲ ساعت</span></strong><span class="muted">routing روشن، پاسخ قطعی داده‌ای، RAG صحیح، tool و stream آزموده.</span></div>
+        <div class="phase"><strong>۴ · HR و Assessment پایلوت <span class="hours">۱۵ ساعت</span></strong><span class="muted">فقط گردش‌کارهای انتخاب‌شده توسط مالک، با دسترسی و audit.</span></div>
+        <div class="phase"><strong>۵ · ادغام‌های بیرونی <span class="hours">۱۲٫۵ ساعت*</span></strong><span class="muted">Discovery و تصمیم go/no-go؛ اتصال فقط با مالک، مجوز، مستند و sandbox.</span></div>
+        <div class="phase"><strong>۶ · کپی تحلیلی گفتگو <span class="hours">۱۸ ساعت*</span></strong><span class="muted">ETL مستقل و read-only، privacy-safe، idempotent و قابل بازیابی.</span></div>
+        <div class="phase"><strong>۷ · staging و پذیرش پایلوت <span class="hours">۱۹٫۵ ساعت</span></strong><span class="muted">امنیت، backup/restore، runbook، smoke/load و تصمیم Go/No-Go.</span></div>
+        <p class="muted">* بدون زمان انتظار برای دسترسی، تأیید حقوقی یا پاسخ تیم‌های سرویس بیرونی.</p>
+    </section>
 
-            <!-- Phase 1: Week 1 In Progress -->
-            <div class="phase-card">
-                <div class="bg-slate-900 px-6 py-4 flex justify-between items-center">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white text-lg font-bold">۱</div>
-                        <div>
-                            <h2 class="text-xl font-bold text-white">هفته ۱: سینک چت‌ها + شناسایی دسته نیافته</h2>
-                            <p class="text-slate-300 text-sm">شنبه ۹ آبان → چهارشنبه ۱۳ آبان • تکمیل شده</p>
-                        </div>
-                    </div>
-                    <a href="time-tracking.md" target="_blank" class="text-xs text-slate-400 hover:text-blue-400 underline">⏱ زمان‌سنجی</a>
-                    <span class="status-badge status-done">تکمیل شده</span>
-                </div>
-                <div class="p-6">
-                    <div class="week-grid mb-4">
-                        <div class="day-cell day-active">
-                            <strong>شنبه ۹</strong><br>
-                            <span class="text-xs">سینک ۲۱۱ چت از gapgpt.app + تست WebSocket</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>یکشنبه ۱۰</strong><br>
-                            <span class="text-xs">بازرسی PostgreSQL 16+pgvector (۲۱۱/۹۰۰/۱۶)</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>دوشنبه ۱۱</strong><br>
-                            <span class="text-xs">یافت ۱۱۱ چت دسته‌نیافته (۵۳٪)</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>سه‌شنبه ۱۲</strong><br>
-                            <span class="text-xs">تحلیل ۶۰٪ خطای auth در لاگ‌ها</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>چهارشنبه ۱۳</strong><br>
-                            <span class="text-xs">مستند ۱.۲۹ benefit-cost + CONSTITUTION</span>
-                        </div>
-                    </div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
-                    <p class="text-xs text-slate-400 mt-2">همه مراحل هفته ۱ تکمیل شده: سینک ۲۱۱ چت، شناسایی ۱۱۱ چت دسته‌نیافته، تحلیل ۶۰٪ خطای auth، مستندسازی benefit-cost و CONSTITUTION.</p>
-                </div>
-            </div>
+    <section class="grid" style="margin-top:16px">
+        <article class="card">
+            <h2>Gate ادغام بیرونی</h2>
+            <p>Saniran، Faragostar، ProcessMaker، JobVision و منابع دیگر تا تأیید مالک، API مجاز، credential آزمایشی و داده‌ی نمونه در discovery می‌مانند. نبود gate به معنی حذف از پایلوت است، نه پیاده‌سازی نمایشی.</p>
+        </article>
+        <article class="card">
+            <h2>مرزبندی داده</h2>
+            <p>تحلیل چت در پروژه و Compose جداگانه است. دیتابیس عملیاتی فقط خوانده می‌شود؛ Mongo عمومی نمی‌شود و داده‌ی شناسایی‌کننده یا محتوای حساس بدون مجوز کپی نمی‌شود.</p>
+        </article>
+        <article class="card">
+            <h2>روش پیشرفت</h2>
+            <p>ابتدا baseline؛ سپس تست قرمز، پیاده‌سازی کوچک، تست سبز و بازبینی. وضعیت فقط با شاهد commit/PR/test/deploy به‌روز می‌شود؛ پیشرفت درصدی ساختگی نمایش داده نمی‌شود.</p>
+        </article>
+    </section>
 
-            <!-- Phase 2 -->
-            <div class="phase-card">
-                <div class="bg-blue-600 px-6 py-4 flex justify-between items-center">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white text-lg font-bold">۲</div>
-                        <div>
-                            <h2 class="text-xl font-bold text-white">هفته ۲: مهاجرت و آرشیو (پشتیبان‌گیري از سنجمان)</h2>
-                            <p class="text-blue-100 text-sm">شنبه ۱۶ آبان → چهارشنبه ۲۰ آبان</p>
-                        </div>
-                    </div>
-                    <a href="time-tracking.md" target="_blank" class="text-xs text-slate-200 hover:text-blue-400 underline">⏱ زمان‌سنجی</a>
-                    <span class="status-badge status-in-progress">در حال انجام</span>
-                </div>
-                <div class="p-6">
-                    <div class="week-grid mb-4">
-                        <div class="day-cell day-active">
-                            <strong>شنبه ۱۶ آبان</strong><br>
-                            <span class="text-xs">طراحی Schema-Driven آرشیو مدارک (جایگزین سنجمان)</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>یکشنبه ۱۷ آبان</strong><br>
-                            <span class="text-xs">پیاده‌سازی OCR فارسی (+۲٪ دقت)</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>دوشنبه ۱۸ آبان</strong><br>
-                            <span class="text-xs">مهاجرت Script Sandjam→SIMA (تطبیق فیلدهای پرسنلی)</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>سه‌شنبه ۱۹ آبان</strong><br>
-                            <span class="text-xs">تست یکپارچگی آرشیو + رزومه فراخوانی</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>چهارشنبه ۲۰ آبان</strong><br>
-                            <span class="text-xs">ممیزی امنیتی + تست لود آرشیو</span>
-                        </div>
-                    </div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div>
-                    <p class="text-xs text-blue-100 mt-2">بهبود آرشیو: جایگزین Schema-Driven + Persian OCR + Migration.</p>
-                </div>
-            </div>
-
-            <!-- Phase 3 -->
-            <div class="phase-card">
-                <div class="bg-green-600 px-6 py-4 flex justify-between items-center">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white text-lg font-bold">۳</div>
-                        <div>
-                            <h2 class="text-xl font-bold text-white">هفته ۳: نقشه‌راه ترکیبی (ProcessMaker 4 و سانیران)</h2>
-                            <p class="text-green-100 text-sm">شنبه ۲۳ آبان → چهارشنبه ۲۷ آبان</p>
-                        </div>
-                    </div>
-                    <a href="time-tracking.md" target="_blank" class="text-xs text-green-200 hover:text-green-400 underline">⏱ زمان‌سنجی</a>
-                    <span class="status-badge status-in-progress">در حال انجام</span>
-                </div>
-                <div class="p-6">
-                    <div class="week-grid mb-4">
-                        <div class="day-cell day-active">
-                            <strong>شنبه ۲۳ آبان</strong><br>
-                            <span class="text-xs">نصب PM4 + CSS Injection (شبیه‌سازی UI)</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>یکشنبه ۲۴ آبان</strong><br>
-                            <span class="text-xs">مدل‌سازی BPMN فرایندهای اصلی (مرخصی/جذب)</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>دوشنبه ۲۵ آبان</strong><br>
-                            <span class="text-xs">اتصال Sanir به PM4</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>سه‌شنبه ۲۶ آبان</strong><br>
-                            <span class="text-xs">تست توکن‌های احراز هویت خودکار</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>چهارشنبه ۲۷ آبان</strong><br>
-                            <span class="text-xs">تثبیت فرایند اتوماسیون</span>
-                        </div>
-                    </div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
-                    <p class="text-xs text-green-100 mt-2">ترکیب PM4 + Saniran: Process automation + BPMN modeling + web service integration.</p>
-                </div>
-            </div>
-
-            <!-- Phase 4 -->
-            <div class="phase-card">
-                <div class="bg-purple-600 px-6 py-4 flex justify-between items-center">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-white text-lg font-bold">۴</div>
-                        <div>
-                            <h2 class="text-xl font-bold text-white">هفته ۴: هوشمندی (چت‌بات/Multi) و SLLM</h2>
-                            <p class="text-purple-100 text-sm">شنبه ۳۰ آبان → چهارشنبه ۴ آذر</p>
-                        </div>
-                    </div>
-                    <a href="time-tracking.md" target="_blank" class="text-xs text-purple-200 hover:text-purple-400 underline">⏱ زمان‌سنجی</a>
-                    <span class="status-badge status-in-progress">در حال انجام</span>
-                </div>
-                <div class="p-6">
-                    <div class="week-grid mb-4">
-                        <div class="day-cell day-active">
-                            <strong>شنبه ۳۰ آبان</strong><br>
-                            <span class="text-xs">راه‌اندازی هسته چت‌بات (SubAgent multi/gitips)</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>یکشنبه ۱ آذر</strong><br>
-                            <span class="text-xs">پرامپت‌های ارزیابی کاندیدا → دیتابیس مدرن</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>دوشنبه ۲ آذر</strong><br>
-                            <span class="text-xs">استقرار SLLM (هزینه/حریم خصوصی)</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>سه‌شنبه ۳ آذر</strong><br>
-                            <span class="text-xs">تکمیل GapGPT Dashboard (نظارت کل سیستم)</span>
-                        </div>
-                        <div class="day-cell day-active">
-                            <strong>چهارشنبه ۴ آذر</strong><br>
-                            <span class="text-xs">گزارش نهایی «تحول نقشه راه» + deploy</span>
-                        </div>
-                    </div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
-                    <p class="text-xs text-purple-100 mt-2">هوشمندی: Chatbot core + SLLM + Dashboard + Final roadmap transformation report.</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Key Metrics / Stats -->
-    <div class="bg-slate-900 border-t border-slate-800 text-white py-12">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-center mb-8">
-                <div>
-                    <div class="text-3xl font-bold text-blue-400">۲۱۱</div>
-                    <div class="text-slate-400 text-xs">چت کل gapgpt</div>
-                </div>
-                <div>
-                    <div class="text-3xl font-bold text-blue-400">۹۰۰</div>
-                    <div class="text-slate-400 text-xs">پیام همگام‌شده</div>
-                </div>
-                <div>
-                    <div class="text-3xl font-bold text-blue-400">۱۶</div>
-                    <div class="text-slate-400 text-xs">گروه موضوعی</div>
-                </div>
-                <div>
-                    <div class="text-3xl font-bold text-blue-400">۲۹</div>
-                    <div class="text-slate-400 text-xs">موضوع گزارش</div>
-                </div>
-                <div>
-                    <div class="text-3xl font-bold text-blue-400">۴ هفته</div>
-                    <div class="text-slate-400 text-xs">کار کاری — ۹ آبان تا ۷ آذر</div>
-                </div>
-            </div>
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-center border-t border-slate-800 pt-8 mb-8">
-                <div>
-                    <div class="text-3xl font-bold text-emerald-400">۱</div>
-                    <div class="text-slate-400 text-xs">ماژول پایه تکمیل‌شده (تحلیل + داشبورد + Knowledge Hub)</div>
-                </div>
-                <div>
-                    <div class="text-3xl font-bold text-blue-400">۳</div>
-                    <div class="text-slate-400 text-xs">ماژول هسته‌ای (نقشه صفر + چت‌بات + SLLM)</div>
-                </div>
-                <div>
-                    <div class="text-3xl font-bold text-blue-400">۱</div>
-                    <div class="text-slate-400 text-xs">استقرار نهایی در rm.adlr.ir</div>
-                </div>
-                <div>
-                    <div class="text-3xl font-bold text-blue-400">۱.۲۹</div>
-                    <div class="text-slate-400 text-xs">نسبت سود-هزینه (optimized)</div>
-                </div>
-                <div>
-                    <div class="text-3xl font-bold text-blue-400">۶۰٪</div>
-                    <div class="text-slate-400 text-xs">چت‌های بازنگری‌شده (ساده → یکپارچه)</div>
-                </div>
-            </div>
-            <div class="text-center text-slate-500 text-xs">
-                نسخه: ۲.۱.۰
-            </div>
-        </div>
-    </div>
-
+    <footer>
+        <p>نقشه‌راه فنی و taskهای کامل در <a href="sima-roadmap.md">sima-roadmap.md</a> منبع مرجع هستند؛ این صفحه فقط خلاصه‌ی مدیریتی است.</p>
+        <p>مبنای بررسی: پروژه‌ی آزمایشی SIMA در <a href="https://github.com/rivassh/multiagent">rivassh/multiagent</a>. SIMA با GapGPT یکی نیست.</p>
+    </footer>
+</main>
 </body>
 </html>
