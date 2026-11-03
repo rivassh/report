@@ -18,6 +18,7 @@ import re
 import subprocess
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
+from collections import Counter
 
 # ---------------------------------------------------------------------------
 # Paths (all relative to project root: /opt/websites/statics/rm.adlr.ir)
@@ -36,6 +37,13 @@ LEASES_JSON = MULTIAGENT_STATE / "leases.json"
 
 SIMA_REPO = Path("/opt/ymls/sima")
 SIMA_GIT = SIMA_REPO / ".git"
+
+# SIMA-specific report outputs (categorized by subject)
+SIMA_ACCESS_HTML = REPORT_DIR / "sima-access.html"
+SIMA_ACTIVITY_HTML = REPORT_DIR / "sima-activity.html"
+SIMA_TASKS_HTML = REPORT_DIR / "sima-tasks.html"
+
+SIMA_NGINX_LOG = Path("/opt/logs/sima.adlr.ir.log")
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -382,6 +390,283 @@ def render_roadmap(data: dict, today_str: str):
     print(f"  ✓ rendered {ROADMAP_HTML.name}")
 
 
+
+
+# ---------------------------------------------------------------------------
+# SIMA report generation
+# ---------------------------------------------------------------------------
+
+def parse_sima_nginx_log(log_path: Path, today_str: str = None) -> dict:
+    """Parse SIMA nginx access log for today or all time."""
+    result = {
+        "total_requests": 0,
+        "today_requests": 0,
+        "status_codes": Counter(),
+        "paths": Counter(),
+        "top_ips": Counter(),
+        "errors": 0,
+    }
+    try:
+        with open(log_path, "r", encoding="utf-8", errors="ignore") as f:
+            for line in f:
+                # Format: IP IP IP IP - - [DD/Mon/YYYY:HH:MM:SS +0000] "METHOD /path HTTP/1.x" STATUS SIZE ...
+                result["total_requests"] += 1
+                m = re.search(r'\[(\d{2}/\w{3}/\d{4}):(\d{2}):(\d{2}):(\d{2})\s+\+\d{4}\]', line)
+                if m:
+                    day = m.group(1)
+                    if today_str and day == today_str:
+                        result["today_requests"] += 1
+                sm = re.search(r'"[A-Z]+\s+(\S+)\s+HTTP', line)
+                if sm:
+                    result["paths"][sm.group(1)] += 1
+                scm = re.search(r'"\s+(\d{3})\s+', line)
+                if scm:
+                    code = scm.group(1)
+                    result["status_codes"][code] += 1
+                    if code.startswith("4") or code.startswith("5"):
+                        result["errors"] += 1
+                ipm = re.match(r"(\d+\.\d+\.\d+\.\d+)", line)
+                if ipm:
+                    result["top_ips"][ipm.group(1)] += 1
+    except FileNotFoundError:
+        pass
+    return result
+
+
+def parse_sima_multiagent(today_str: str = None) -> dict:
+    """Parse SIMA multiagent state for task/lease activity."""
+    result = {
+        "tasks_total": 0,
+        "tasks_by_status": Counter(),
+        "leases": [],
+        "agents": [],
+        "today_completions": [],
+    }
+    try:
+        tasks_data = read_json(TASKS_JSON)
+        tasks = tasks_data.get("tasks", [])
+        result["tasks_total"] = len(tasks)
+        for t in tasks:
+            status = t.get("status", "unknown")
+            result["tasks_by_status"][status] += 1
+    except Exception:
+        pass
+
+    try:
+        leases_data = read_json(LEASES_JSON)
+        result["leases"] = leases_data.get("leases", [])
+    except Exception:
+        pass
+
+    try:
+        agents_data = read_json(Path("/opt/multiagent/state/agents.json"))
+        result["agents"] = agents_data.get("agents", [])
+    except Exception:
+        pass
+
+    # Today completions from team_log
+    try:
+        events = parse_team_log_today()
+        result["today_completions"] = events.get("completions", [])
+    except Exception:
+        pass
+
+    return result
+
+
+def render_sima_access(nginx_stats: dict, today_str: str):
+    """Render sima-access.html from nginx log stats."""
+    html = f"""<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>گزارش دسترسی SIMA</title>
+<link rel="stylesheet" href="../assets/vazirmatn.css">
+<style>
+  body {{ font-family: 'Vazirmatn', Tahoma, sans-serif; background: #f8fafc; padding: 2rem; }}
+  .card {{ background: white; border: 1px solid #e2e8f0; border-radius: .75rem; padding: 1.5rem; margin-bottom: 1rem; }}
+  .stat {{ font-size: 2rem; font-weight: 800; }}
+  .red {{ color: #dc2626; }} .green {{ color: #16a34a; }} .amber {{ color: #d97706; }} .blue {{ color: #4f46e5; }}
+  table {{ width: 100%; border-collapse: collapse; font-size: .9rem; }}
+  th, td {{ text-align: right; padding: .5rem; border-bottom: 1px solid #e2e8f0; }}
+</style>
+</head>
+<body>
+<h1>گزارش دسترسی SIMA — {today_str}</h1>
+
+<div class="card">
+  <h3>آمار کلی</h3>
+  <table>
+    <tr><th>کل درخواست‌ها</th><td class="stat blue">{{total}}</td></tr>
+    <tr><th>درخواست‌های امروز</th><td class="stat green">{{today}}</td></tr>
+    <tr><th>خطاها (۴xx/۵xx)</th><td class="stat red">{{errors}}</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h3>کدهای وضعیت HTTP</h3>
+  <table>
+    <tr><th>کد</th><th>تعداد</th></tr>
+    {{status_rows}}
+  </table>
+</div>
+
+<div class="card">
+  <h3>پویا‌ترین مسیرها</h3>
+  <table>
+    <tr><th>مسیر</th><th>تعداد</th></tr>
+    {{path_rows}}
+  </table>
+</div>
+
+<div class="card">
+  <h3>پویا‌ترین آدرس‌های IP</h3>
+  <table>
+    <tr><th>IP</th><th>تعداد</th></tr>
+    {{ip_rows}}
+  </table>
+</div>
+
+<p style="color:#666;font-size:.8rem">تولید خودکار توسط generate-report.py — ساعت ischemia</p>
+</body>
+</html>"""
+
+    status_rows = "\n".join(f"<tr><td>{k}</td><td>{v}</td></tr>" for k, v in sorted(nginx_stats["status_codes"].items()))
+    path_rows = "\n".join(f"<tr><td>{k}</td><td>{v}</td></tr>" for k, v in nginx_stats["paths"].most_common(10))
+    ip_rows = "\n".join(f"<tr><td>{k}</td><td>{v}</td></tr>" for k, v in nginx_stats["top_ips"].most_common(10))
+
+    html = html.replace("{{total}}", str(nginx_stats["total_requests"]))
+    html = html.replace("{{today}}", str(nginx_stats["today_requests"]))
+    html = html.replace("{{errors}}", str(nginx_stats["errors"]))
+    html = html.replace("{{status_rows}}", status_rows)
+    html = html.replace("{{path_rows}}", path_rows)
+    html = html.replace("{{ip_rows}}", ip_rows)
+
+    with open(SIMA_ACCESS_HTML, "w", encoding="utf-8") as f:
+        f.write(html)
+    print(f"  ✓ rendered {SIMA_ACCESS_HTML.name}")
+
+
+def render_sima_activity(activity: dict, today_str: str):
+    """Render sima-activity.html from multiagent state."""
+    html = f"""<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>گزارش فعالیت SIMA</title>
+<link rel="stylesheet" href="../assets/vazirmatn.css">
+<style>
+  body {{ font-family: 'Vazirmatn', Tahoma, sans-serif; background: #f8fafc; padding: 2rem; }}
+  .card {{ background: white; border: 1px solid #e2e8f0; border-radius: .75rem; padding: 1.5rem; margin-bottom: 1rem; }}
+  .stat {{ font-size: 2rem; font-weight: 800; }}
+  .green {{ color: #16a34a; }} .red {{ color: #dc2626; }} .amber {{ color: #d97706; }}
+  table {{ width: 100%; border-collapse: collapse; font-size: .9rem; }}
+  th, td {{ text-align: right; padding: .5rem; border-bottom: 1px solid #e2e8f0; }}
+</style>
+</head>
+<body>
+<h1>گزارش فعالیت SIMA — {today_str}</h1>
+
+<div class="card">
+  <h3>آمار وظایف</h3>
+  <table>
+    <tr><th>کل وظایف</th><td class="stat blue">{{total}}</td></tr>
+    {{status_rows}}
+  </table>
+</div>
+
+<div class="card">
+  <h3>تکمیل‌های امروز</h3>
+  <table>
+    {{completion_rows}}
+  </table>
+</div>
+
+<div class="card">
+  <h3>لیزهای فعال</h3>
+  <table>
+    {{lease_rows}}
+  </table>
+</div>
+
+<p style="color:#666;font-size:.8rem">تولید خودکار توسط generate-report.py</p>
+</body>
+</html>"""
+
+    status_rows = "\n".join(f"<tr><td>{k}</td><td>{v}</td></tr>" for k, v in activity["tasks_by_status"].items())
+    completion_rows = ""
+    if activity["today_completions"]:
+        completion_rows = "\n".join(
+            f"<tr><td>{c['task_id']}</td><td>{c['status']}</td><td>{c['actor']}</td></tr>"
+            for c in activity["today_completions"]
+        )
+    else:
+        completion_rows = "<tr><td colspan=3>بدون تکمیل امروز</td></tr>"
+
+    lease_rows = ""
+    if activity["leases"]:
+        lease_rows = "\n".join(
+            f"<tr><td>{l.get('id','-')}</td><td>{l.get('status','-')}</td></tr>"
+            for l in activity["leases"]
+        )
+    else:
+        lease_rows = "<tr><td colspan=2>بدون لیز فعال</td></tr>"
+
+    html = html.replace("{{total}}", str(activity["tasks_total"]))
+    html = html.replace("{{status_rows}}", status_rows)
+    html = html.replace("{{completion_rows}}", completion_rows)
+    html = html.replace("{{lease_rows}}", lease_rows)
+
+    with open(SIMA_ACTIVITY_HTML, "w", encoding="utf-8") as f:
+        f.write(html)
+    print(f"  ✓ rendered {SIMA_ACTIVITY_HTML.name}")
+
+
+def render_sima_tasks(multiagent: dict, today_str: str):
+    """Render sima-tasks.html categorized by subject/task."""
+    html = f"""<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>گزارش وظایف SIMA</title>
+<link rel="stylesheet" href="../assets/vazirmatn.css">
+<style>
+  body {{ font-family: 'Vazirmatn', Tahoma, sans-serif; background: #f8fafc; padding: 2rem; }}
+  .card {{ background: white; border: 1px solid #e2e8f0; border-radius: .75rem; padding: 1.5rem; margin-bottom: 1rem; }}
+  table {{ width: 100%; border-collapse: collapse; font-size: .9rem; }}
+  th, td {{ text-align: right; padding: .5rem; border-bottom: 1px solid #e2e8f0; }}
+  .done {{ color: #16a34a; }} .revise {{ color: #d97706; }} .todo {{ color: #64748b; }}
+</style>
+</head>
+<body>
+<h1>گزارش وظایف SIMA بر اساس موضوع — {today_str}</h1>
+
+<div class="card">
+  <h3>لیست وظایف</h3>
+  <table>
+    <tr><th>شناسه</th><th>عنوان</th><th>وضعیت</th><th>مسئول</th></tr>
+    {{task_rows}}
+  </table>
+</div>
+
+<p style="color:#666;font-size:.8rem">تولید خودکار توسط generate-report.py</p>
+</body>
+</html>"""
+
+    task_rows = ""
+    for t in multiagent.get("all_tasks", []):
+        status_class = "done" if t["status"] == "DONE" else ("revise" if t["status"] == "REVISE" else "todo")
+        task_rows += f"<tr><td>{t['id']}</td><td>{t['title']}</td><td class='{status_class}'>{t['status']}</td><td>{t.get('assigned_to','-')}</td></tr>"
+
+    html = html.replace("{{task_rows}}", task_rows)
+
+    with open(SIMA_TASKS_HTML, "w", encoding="utf-8") as f:
+        f.write(html)
+    print(f"  ✓ rendered {SIMA_TASKS_HTML.name}")
+
+
+
+
 # ---------------------------------------------------------------------------
 # Main pipeline
 # ---------------------------------------------------------------------------
@@ -407,6 +692,30 @@ def main():
     
     print("  · rendering roadmap.html")
     render_roadmap(data, today_str)
+    
+    # 5. Generate SIMA reports (categorized by subject)
+    print("  · parsing SIMA nginx log")
+    nginx_stats = parse_sima_nginx_log(SIMA_NGINX_LOG, today_str)
+    
+    print("  · parsing SIMA multiagent activity")
+    activity = parse_sima_multiagent(today_str)
+    all_tasks = []
+    try:
+        tasks_data = read_json(TASKS_JSON)
+        all_tasks = tasks_data.get("tasks", [])
+    except Exception:
+        pass
+    activity["all_tasks"] = all_tasks
+    
+    # 6. Render SIMA HTML views (categorized by subject)
+    print("  · rendering sima-access.html")
+    render_sima_access(nginx_stats, today_str)
+    
+    print("  · rendering sima-activity.html")
+    render_sima_activity(activity, today_str)
+    
+    print("  · rendering sima-tasks.html")
+    render_sima_tasks(activity, today_str)
     
     print(f"\n=== Done for {today_str} ===\n")
 

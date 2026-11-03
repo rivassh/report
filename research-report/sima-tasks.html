@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>گزارش وظایف SIMA</title>
+<link rel="stylesheet" href="../assets/vazirmatn.css">
+<style>
+  body { font-family: 'Vazirmatn', Tahoma, sans-serif; background: #f8fafc; padding: 2rem; }
+  .card { background: white; border: 1px solid #e2e8f0; border-radius: .75rem; padding: 1.5rem; margin-bottom: 1rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  th, td { text-align: right; padding: .5rem; border-bottom: 1px solid #e2e8f0; }
+  .done { color: #16a34a; } .revise { color: #d97706; } .todo { color: #64748b; }
+</style>
+</head>
+<body>
+<h1>گزارش وظایف SIMA بر اساس موضوع — 2026-11-03</h1>
+
+<div class="card">
+  <h3>لیست وظایف</h3>
+  <table>
+    <tr><th>شناسه</th><th>عنوان</th><th>وضعیت</th><th>مسئول</th></tr>
+    {task_rows}
+  </table>
+</div>
+
+<p style="color:#666;font-size:.8rem">تولید خودکار توسط generate-report.py</p>
+</body>
+</html>

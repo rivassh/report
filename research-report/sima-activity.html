@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>گزارش فعالیت SIMA</title>
+<link rel="stylesheet" href="../assets/vazirmatn.css">
+<style>
+  body { font-family: 'Vazirmatn', Tahoma, sans-serif; background: #f8fafc; padding: 2rem; }
+  .card { background: white; border: 1px solid #e2e8f0; border-radius: .75rem; padding: 1.5rem; margin-bottom: 1rem; }
+  .stat { font-size: 2rem; font-weight: 800; }
+  .green { color: #16a34a; } .red { color: #dc2626; } .amber { color: #d97706; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  th, td { text-align: right; padding: .5rem; border-bottom: 1px solid #e2e8f0; }
+</style>
+</head>
+<body>
+<h1>گزارش فعالیت SIMA — 2026-11-03</h1>
+
+<div class="card">
+  <h3>آمار وظایف</h3>
+  <table>
+    <tr><th>کل وظایف</th><td class="stat blue">{total}</td></tr>
+    {status_rows}
+  </table>
+</div>
+
+<div class="card">
+  <h3>تکمیل‌های امروز</h3>
+  <table>
+    {completion_rows}
+  </table>
+</div>
+
+<div class="card">
+  <h3>لیزهای فعال</h3>
+  <table>
+    {lease_rows}
+  </table>
+</div>
+
+<p style="color:#666;font-size:.8rem">تولید خودکار توسط generate-report.py</p>
+</body>
+</html>

@@ -88,3 +88,32 @@
 |تلاش‌های امشب| مولد متن برنامه‌ریزی، به‌روزرسانی گزارش |
 |تلاش امروز| ۵ ساعت انسانی + پردازش متغیر ماشینی |
 
+
+## زمان‌سنجی امروز (2026-11-03)
+
+### ساعات انسانی (Human Time — 2026-11-03)
+
+| فعالیت | ساعت | تاریخ | توضیحات |
+|--------|------|-------|----------|
+| بررسی timeline audit & Audit Gates | 2.0 | 2026-11-03 | Synchor gaps: Suniran, Faragostar, HR; token expiry deadline |
+| کد cambió revisions (sima) | 1.5 | 2026-11-03 | Auth hardening, OTP enforcement, ConversationHistoryService |
+| جلسات multiagent / consensus | 1.0 | 2026-11-03 | TASK-079..081 completion, TASK-082/083/085 initialization |
+| review/documentation catch-up | 0.5 | 2026-11-03 | Audit gates status, task progression blockers |
+| **جمع** | **5.0 ساعت** | | |
+
+### زمان ماشینی (Machine Time — 2026-11-03)
+
+| عملیات | مدت | منبع | توضیح |
+|--------|-----|------|--------|
+| sync_chats | متغیر | scripts/sync_chats.py | tokens per sync |
+| migrate mimocode | متغیر | scripts/migrate_mimocode_to_postgres.py | ۳۰+ جدول |
+| API retry loops | ≤۱۲s max | multiple scripts | backoff logic |
+| Timeline generation | متغیر | generate-monthly-timeline.py | مهر ۱۴۰۵ snapshot |
+| Audit gate status check | متغیر | state/tasks.json, tasks.json | Suniran/Faragostar/HR verification |
+|Tokens در free tier| ۱۰۰ در ماه |
+|costo انسانی| 5.0 ساعت |
+|costo دیتابیس| صفر |
+|token استفاده شده ( estimations)| ~۵,۰۰۰ |
+|تلاش‌های امشب| مولد متن برنامه‌ریزی، به‌روزرسانی گزارش |
+|تلاش امروز| ۵ ساعت انسانی + پردازش متغیر ماشینی |
+

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>گزارش دسترسی SIMA</title>
+<link rel="stylesheet" href="../assets/vazirmatn.css">
+<style>
+  body { font-family: 'Vazirmatn', Tahoma, sans-serif; background: #f8fafc; padding: 2rem; }
+  .card { background: white; border: 1px solid #e2e8f0; border-radius: .75rem; padding: 1.5rem; margin-bottom: 1rem; }
+  .stat { font-size: 2rem; font-weight: 800; }
+  .red { color: #dc2626; } .green { color: #16a34a; } .amber { color: #d97706; } .blue { color: #4f46e5; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  th, td { text-align: right; padding: .5rem; border-bottom: 1px solid #e2e8f0; }
+</style>
+</head>
+<body>
+<h1>گزارش دسترسی SIMA — 2026-11-03</h1>
+
+<div class="card">
+  <h3>آمار کلی</h3>
+  <table>
+    <tr><th>کل درخواست‌ها</th><td class="stat blue">{total}</td></tr>
+    <tr><th>درخواست‌های امروز</th><td class="stat green">{today}</td></tr>
+    <tr><th>خطاها (۴xx/۵xx)</th><td class="stat red">{errors}</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h3>کدهای وضعیت HTTP</h3>
+  <table>
+    <tr><th>کد</th><th>تعداد</th></tr>
+    {status_rows}
+  </table>
+</div>
+
+<div class="card">
+  <h3>پویا‌ترین مسیرها</h3>
+  <table>
+    <tr><th>مسیر</th><th>تعداد</th></tr>
+    {path_rows}
+  </table>
+</div>
+
+<div class="card">
+  <h3>پویا‌ترین آدرس‌های IP</h3>
+  <table>
+    <tr><th>IP</th><th>تعداد</th></tr>
+    {ip_rows}
+  </table>
+</div>
+
+<p style="color:#666;font-size:.8rem">تولید خودکار توسط generate-report.py — ساعت ischemia</p>
+</body>
+</html>
