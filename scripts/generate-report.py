@@ -535,12 +535,12 @@ def render_sima_access(nginx_stats: dict, today_str: str):
     path_rows = "\n".join(f"<tr><td>{k}</td><td>{v}</td></tr>" for k, v in nginx_stats["paths"].most_common(10))
     ip_rows = "\n".join(f"<tr><td>{k}</td><td>{v}</td></tr>" for k, v in nginx_stats["top_ips"].most_common(10))
 
-    html = html.replace("{{total}}", str(nginx_stats["total_requests"]))
-    html = html.replace("{{today}}", str(nginx_stats["today_requests"]))
-    html = html.replace("{{errors}}", str(nginx_stats["errors"]))
-    html = html.replace("{{status_rows}}", status_rows)
-    html = html.replace("{{path_rows}}", path_rows)
-    html = html.replace("{{ip_rows}}", ip_rows)
+    html = html.replace("{total}", str(nginx_stats["total_requests"]))
+    html = html.replace("{today}", str(nginx_stats["today_requests"]))
+    html = html.replace("{errors}", str(nginx_stats["errors"]))
+    html = html.replace("{status_rows}", status_rows)
+    html = html.replace("{path_rows}", path_rows)
+    html = html.replace("{ip_rows}", ip_rows)
 
     with open(SIMA_ACCESS_HTML, "w", encoding="utf-8") as f:
         f.write(html)
@@ -612,10 +612,10 @@ def render_sima_activity(activity: dict, today_str: str):
     else:
         lease_rows = "<tr><td colspan=2>بدون لیز فعال</td></tr>"
 
-    html = html.replace("{{total}}", str(activity["tasks_total"]))
-    html = html.replace("{{status_rows}}", status_rows)
-    html = html.replace("{{completion_rows}}", completion_rows)
-    html = html.replace("{{lease_rows}}", lease_rows)
+    html = html.replace("{total}", str(activity["tasks_total"]))
+    html = html.replace("{status_rows}", status_rows)
+    html = html.replace("{completion_rows}", completion_rows)
+    html = html.replace("{lease_rows}", lease_rows)
 
     with open(SIMA_ACTIVITY_HTML, "w", encoding="utf-8") as f:
         f.write(html)
@@ -658,7 +658,7 @@ def render_sima_tasks(multiagent: dict, today_str: str):
         status_class = "done" if t["status"] == "DONE" else ("revise" if t["status"] == "REVISE" else "todo")
         task_rows += f"<tr><td>{t['id']}</td><td>{t['title']}</td><td class='{status_class}'>{t['status']}</td><td>{t.get('assigned_to','-')}</td></tr>"
 
-    html = html.replace("{{task_rows}}", task_rows)
+    html = html.replace("{task_rows}", task_rows)
 
     with open(SIMA_TASKS_HTML, "w", encoding="utf-8") as f:
         f.write(html)
